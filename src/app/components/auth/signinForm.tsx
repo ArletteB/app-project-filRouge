@@ -1,4 +1,6 @@
+import React from "react";
 import { useState } from "react";
+import "../../styles/auth.css";
 
 const SigninForm = () => {
   const [credentials, setCredentials] = useState({});
@@ -14,21 +16,18 @@ const SigninForm = () => {
 
   const handleSignin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const randomEmail = Math.random().toString(36).substring(7);
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/auth/signup`,
+      `${process.env.REACT_APP_API_URL}/auth/signin`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email: `${randomEmail}@gmail.com`,
-          password: "password",
-        }),
       }
     );
     const data = await response.json();
+    console.log(data);
   };
   return (
     <div className="wrapper">
@@ -68,13 +67,10 @@ const SigninForm = () => {
                 <label htmlFor="password">Password</label>
               </div>
               <div className="input-field">
-                <input
-                  type="submit"
-                  className="submit"
-                  value="S'identifier"
-                ></input>
+                <button onClick={handleSignin} className="submit">
+                  S'identifier
+                </button>
               </div>
-              <div className="signin"></div>
             </div>
           </div>
         </div>
