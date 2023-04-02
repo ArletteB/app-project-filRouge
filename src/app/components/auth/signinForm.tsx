@@ -20,62 +20,66 @@ const SigninForm = () => {
       `${process.env.REACT_APP_API_URL}/auth/signin`,
       {
         method: "POST",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(credentials),
       }
     );
     const data = await response.json();
     console.log(data);
   };
   return (
-    <div className="wrapper">
-      <div className="container main">
-        <div className="row">
-          <div className="col-md-6 side-image">
-            <div className="text">
-              <p>
-                Rejoindre la communauté <i>- MonBonVoisinage</i>
-              </p>
+    <form action="" onSubmit={handleSignin}>
+      <div className="wrapper">
+        <div className="container main">
+          <div className="row">
+            <div className="col-md-6 side-image">
+              <div className="text">
+                <p>
+                  Rejoindre la communauté <i>- MonBonVoisinage</i>
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="col-md-6 right">
-            <div className="input-box">
-              <header>Se Connecter</header>
-              <div className="input-field">
-                <input
-                  type="text"
-                  className="input"
-                  id="email"
-                  required
-                  autoComplete="off"
-                  name="email"
-                  onChange={handleChange}
-                />
-                <label htmlFor="email">Email</label>
-              </div>
-              <div className="input-field">
-                <input
-                  type="password"
-                  className="input"
-                  id="password"
-                  required
-                  name="password"
-                  onChange={handleChange}
-                />
-                <label htmlFor="password">Password</label>
-              </div>
-              <div className="input-field">
-                <button onClick={handleSignin} className="submit">
-                  S'identifier
-                </button>
+            <div className="col-md-6 right">
+              <div className="input-box">
+                <header>Se Connecter</header>
+                <div className="input-field">
+                  <input
+                    type="text"
+                    className="input"
+                    id="email"
+                    required
+                    autoComplete="off"
+                    name="email"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="email">Email</label>
+                </div>
+                <div className="input-field">
+                  <input
+                    type="password"
+                    className="input"
+                    id="password"
+                    required
+                    name="password"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="password">Password</label>
+                </div>
+                <div className="input-field">
+                  <input
+                    type="submit"
+                    value={`S'identifier`}
+                    className="submit"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
