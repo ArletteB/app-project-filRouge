@@ -1,9 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import "../../styles/auth.css";
+import { Navigate } from "react-router-dom";
 
 const SigninForm = () => {
   const [credentials, setCredentials] = useState({});
+  const [redirectTo, setRedirectTo] = useState(false);
 
   const handleChange = (e: {
     preventDefault: () => void;
@@ -28,7 +30,13 @@ const SigninForm = () => {
     );
     const data = await response.json();
     console.log(data);
+
+    setRedirectTo(true);
   };
+
+  if (redirectTo) {
+    <Navigate to="/test" />;
+  }
   return (
     <form action="" onSubmit={handleSignin}>
       <div className="wrapper">
@@ -43,7 +51,9 @@ const SigninForm = () => {
             </div>
             <div className="col-md-6 right">
               <div className="input-box">
-                <header>Se Connecter</header>
+                <div className="header-content">
+                  <h2>Se connecter</h2>
+                </div>
                 <div className="input-field">
                   <input
                     type="text"

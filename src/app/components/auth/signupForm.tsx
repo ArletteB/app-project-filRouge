@@ -1,108 +1,143 @@
-import React from "react";
+import React, { useState } from "react";
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
 
-const SignupForm = () => {
+const SignupForm: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const [step, setStep] = useState<number>(1);
+
+  const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = event.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [id]: value }));
+  };
+
+  const handleNextStep = () => {
+    setStep(step + 1);
+  };
+
+  const handlePrevStep = () => {
+    setStep(step - 1);
+  };
+  const handleSignup = async () => {
+
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+    const data = await response.json();
+    console.log(data);
+  };
+
   return (
-    <div className="wrapper">
-      <div className="container main">
-        <div className="row">
-          <div className="col-md-6 side-image">
-            <div className="text">
-              <p>
-                Rejoindre la communauté <i>- MonBonVoisinage</i>
-              </p>
+    <form onSubmit={handleSignup}>
+      <div className="wrapper">
+        <div className="container main">
+          <div className="row">
+            <div className="col-md-6 side-image">
+              <div className="text">
+                <p>
+                  Rejoindre la communauté <i>- MonBonVoisinage</i>
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="col-md-6 right">
-            <div className="input-box">
-              <div className="hearder-content">
-                <h3>Inscription</h3>
-                <ul>
-                  <li className="active form_1_progessbar">
-                    <div>
-                      <p>1</p>
-                    </div>
-                  </li>
-                  <li className="form_2_progessbar">
-                    <div>
-                      <p>2</p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div className="form_wrap">
-                <div className="form_1 data_info">
-                  <h2>Identité</h2>
-                  <form>
-                    <div className="form_container">
-                      <div className="input-field">
-                        <input
-                          type="text"
-                          className="input"
-                          id="username"
-                          required
-                        />
-                        <label htmlFor="username">Nom</label>
-                      </div>
-                      <div className="input-field">
-                        <input
-                          type="text"
-                          className="input"
-                          id="username"
-                          required
-                        />
-                        <label htmlFor="username">Prenom</label>
-                      </div>
-                    </div>
-                  </form>
+            <div className="col-md-6 right">
+              <div className="input-box">
+                <div className="header-content">
+                  <h2>Inscription</h2>
                 </div>
+                <div className="form_wrap">
+                  {/*  First step */}
+                  {step === 1 && (
+                    <div className="form_1 data_info">
+                      <h3>Identité</h3>
+                      <div className="form_container">
+                        <div className="input-field">
+                          <input
+                            type="text"
+                            className="input"
+                            id="firstName"
+                            value={formData.firstName}
+                            onChange={handleFormChange}
+                            required
+                          />
+                          <label htmlFor="firstName">Nom</label>
+                        </div>
+                        <div className="input-field">
+                          <input
+                            type="text"
+                            className="input"
+                            id="lastName"
+                            value={formData.lastName}
+                            onChange={handleFormChange}
+                            required
+                          />
+                          <label htmlFor="lastName">Prenom</label>
+                        </div>
+                      </div>
+                      <div className="common_btns form_1_btns">
+                        <button type="button" className="btn_next" onClick={handleNextStep}>
+                          Next
+                        </button>
+                      </div>
+                    </div>
 
-                <div className="form_2 data_info style">
-                  <h2>Identifiant</h2>
-                  <form>
-                    <div className="form_container">
-                      <div className="input-field">
-                        <input
-                          type="text"
-                          className="input"
-                          id="email"
-                          required
-                        />
-                        <label htmlFor="email">Email</label>
+                  )}
+                  {/*  Second step */}
+                  {step === 2 && (
+                    <div className="form_2 data_info style">
+                      <h3>Identifiant</h3>
+                      <div className="form_container">
+                        <div className="input-field">
+                          <input
+                            type="text"
+                            className="input"
+                            id="email"
+                            value={formData.email}
+                            onChange={handleFormChange}
+                            required
+                          />
+                          <label htmlFor="email">Email</label>
+                        </div>
+                        <div className="input-field">
+                          <input
+                            type="text"
+                            className="input"
+                            id="password"
+                            value={formData.password}
+                            onChange={handleFormChange}
+                            required
+                          />
+                          <label htmlFor="password">Password</label>
+                        </div>
                       </div>
-                      <div className="input-field">
-                        <input
-                          type="text"
-                          className="input"
-                          id="password"
-                          required
-                        />
-                        <label htmlFor="password">Password</label>
+                      <div className="common_btns form_2_btns style">
+                        <button type="button" className="btn_back" onClick={handlePrevStep}>
+                          Back
+                        </button>
+                        <input type="submit" value={`S'inscrire`} className="btn_done" />
                       </div>
                     </div>
-                  </form>
-                </div>
-              </div>
-
-              <div className="btns_wrap">
-                <div className="common_btns form_1_btns">
-                  <button type="button" className="btn_next">
-                    Next
-                  </button>
-                </div>
-                <div className="common_btns form_2_btns style">
-                  <button type="button" className="btn_back">
-                    Back
-                  </button>
-                  <button type="button" className="btn_done">
-                    Done
-                  </button>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
