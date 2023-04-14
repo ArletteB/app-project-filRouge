@@ -1,22 +1,21 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
 import "../../styles/auth.css";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const SigninForm = () => {
+const SigninForm: React.FC = () => {
   const [credentials, setCredentials] = useState({});
   const [redirectTo, setRedirectTo] = useState(false);
 
-  const handleChange = (e: {
-    preventDefault: () => void;
-    target: { name: any; value: any };
-  }) => {
+  const navigate = useNavigate();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleSignin = async (e: { preventDefault: () => void }) => {
+  const handleSignin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/auth/signin`,
@@ -30,13 +29,14 @@ const SigninForm = () => {
     );
     const data = await response.json();
     console.log(data);
+    setRedirectTo(!redirectTo);
 
-    setRedirectTo(true);
+    if (redirectTo) {
+      navigate("/");
+    }
   };
 
-  if (redirectTo) {
-    <Navigate to="/test" />;
-  }
+
   return (
     <form action="" onSubmit={handleSignin}>
       <div className="wrapper">
@@ -56,7 +56,7 @@ const SigninForm = () => {
                 </div>
                 <div className="input-field">
                   <input
-                    type="text"
+                    type="email"
                     className="input"
                     id="email"
                     required

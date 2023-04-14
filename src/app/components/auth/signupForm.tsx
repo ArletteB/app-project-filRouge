@@ -1,44 +1,54 @@
-import React, { useState } from "react";
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserType } from "../../../setup/types/auth/user.type";
+
 
 const SignupForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [redirectTo, setRedirectTo] = useState(false);
+  const [credentials, setCredentials] = useState<Partial<UserType>>({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
 
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState(1);
 
-  const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = event.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [id]: value }));
+  const navigate = useNavigate();
+
+  const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
   };
 
   const handleNextStep = () => {
-    setStep(step + 1);
+    setStep((prevState: number) => (prevState += 1));
   };
 
   const handlePrevStep = () => {
-    setStep(step - 1);
+    setStep((prevState: number) => (prevState -= 1));
   };
-  const handleSignup = async () => {
-
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formData)
-    })
+  const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/auth/signup`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      }
+    );
     const data = await response.json();
     console.log(data);
+
+    setRedirectTo(!redirectTo);
+
+    if (redirectTo) {
+      navigate("/auth/signin");
+    }
   };
 
   return (
@@ -69,7 +79,7 @@ const SignupForm: React.FC = () => {
                             type="text"
                             className="input"
                             id="firstName"
-                            value={formData.firstName}
+                            name="firstName"
                             onChange={handleFormChange}
                             required
                           />
@@ -80,7 +90,7 @@ const SignupForm: React.FC = () => {
                             type="text"
                             className="input"
                             id="lastName"
-                            value={formData.lastName}
+                            name="lastName"
                             onChange={handleFormChange}
                             required
                           />
@@ -88,12 +98,15 @@ const SignupForm: React.FC = () => {
                         </div>
                       </div>
                       <div className="common_btns form_1_btns">
-                        <button type="button" className="btn_next" onClick={handleNextStep}>
+                        <button
+                          type="button"
+                          className="btn_next"
+                          onClick={handleNextStep}
+                        >
                           Next
                         </button>
                       </div>
                     </div>
-
                   )}
                   {/*  Second step */}
                   {step === 2 && (
@@ -102,10 +115,10 @@ const SignupForm: React.FC = () => {
                       <div className="form_container">
                         <div className="input-field">
                           <input
-                            type="text"
+                            type="email"
                             className="input"
                             id="email"
-                            value={formData.email}
+                            name="email"
                             onChange={handleFormChange}
                             required
                           />
@@ -113,10 +126,10 @@ const SignupForm: React.FC = () => {
                         </div>
                         <div className="input-field">
                           <input
-                            type="text"
+                            type="password"
                             className="input"
                             id="password"
-                            value={formData.password}
+                            name="password"
                             onChange={handleFormChange}
                             required
                           />
@@ -124,10 +137,18 @@ const SignupForm: React.FC = () => {
                         </div>
                       </div>
                       <div className="common_btns form_2_btns style">
-                        <button type="button" className="btn_back" onClick={handlePrevStep}>
+                        <button
+                          type="button"
+                          className="btn_back"
+                          onClick={handlePrevStep}
+                        >
                           Back
                         </button>
-                        <input type="submit" value={`S'inscrire`} className="btn_done" />
+                        <input
+                          type="submit"
+                          value={`S'inscrire`}
+                          className="btn_done"
+                        />
                       </div>
                     </div>
                   )}
