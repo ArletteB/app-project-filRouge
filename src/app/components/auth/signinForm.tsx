@@ -36,7 +36,6 @@ const SigninForm: React.FC = () => {
     }
   };
 
-
   return (
     <form action="" onSubmit={handleSignin}>
       <div className="wrapper">
@@ -76,6 +75,9 @@ const SigninForm: React.FC = () => {
                     onChange={handleChange}
                   />
                   <label htmlFor="password">Password</label>
+                </div>
+                <div className="forgotPassword">
+                  <a href="#">Mot de passe oublié ?</a>
                 </div>
                 <div className="input-field">
                   <input

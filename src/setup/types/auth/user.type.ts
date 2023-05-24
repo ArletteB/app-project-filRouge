@@ -12,3 +12,8 @@ export interface UserType {
   //   subject?: SubjectType;
   //   delivrables?: DelivrableType[];
 }
+
+export type ResetPassword = {
+  token: string;
+  password: string;
+};
