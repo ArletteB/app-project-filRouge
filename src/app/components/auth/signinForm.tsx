@@ -77,7 +77,7 @@ const SigninForm: React.FC = () => {
                   <label htmlFor="password">Password</label>
                 </div>
                 <div className="forgotPassword">
-                  <a href="#">Mot de passe oublié ?</a>
+                  <a href="/forgot-password">Mot de passe oublié ?</a>
                 </div>
                 <div className="input-field">
                   <input

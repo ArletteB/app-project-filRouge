@@ -1,9 +1,14 @@
-import { FC, useRef, useEffect } from "react";
+import { FC, useRef, useEffect, useState } from "react";
 import "./reset-password.css";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
-export const ResetPassword: FC = () => {
+export const ResetPasswordPage: FC = () => {
   const passwordRef = useRef<HTMLInputElement>(null!);
   const toggleRef = useRef<HTMLDivElement>(null);
+
+  const params = useParams<{ token: string }>();
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     const toggle = toggleRef.current;
@@ -29,12 +34,42 @@ export const ResetPassword: FC = () => {
       }
     };
   }, []);
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/auth/reset-password/${params.token}`,
+        {
+          password: password,
+        }
+      );
+      console.log(response.data); // Handle the response accordingly
+    } catch (error) {
+      console.error(error); // Handle error
+    }
+  };
 
   return (
-    <div className="inputBox">
-      <input type="password" required id="password" ref={passwordRef} />
-      <span>Password</span>
-      <div id="toggle" ref={toggleRef}></div>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <div className="inputBox">
+        <input
+          type="password"
+          required
+          id="password"
+          value={password}
+          onChange={handlePasswordChange}
+          ref={passwordRef}
+        />
+        <span>Password</span>
+        <div id="toggle" ref={toggleRef}></div>
+      </div>
+      <div className="submit-input">
+        <input type="submit" className="submit" value="Envoyer" />
+      </div>
+    </form>
   );
 };
