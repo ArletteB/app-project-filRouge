@@ -10,6 +10,9 @@ export const ResetPasswordPage: FC = () => {
   const params = useParams<{ token: string }>();
   const [password, setPassword] = useState("");
 
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     const toggle = toggleRef.current;
     const password = passwordRef.current;
@@ -41,35 +44,47 @@ export const ResetPasswordPage: FC = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
+      // Lors de la soumission la requete renvoei une erreur dû au tooken qui contient des infos en trop (%7D)
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/auth/reset-password/${params.token}`,
         {
           password: password,
         }
       );
+      setSuccessMessage("Password reset successfully.");
+      setErrorMessage("");
       console.log(response.data); // Handle the response accordingly
     } catch (error) {
+      setSuccessMessage("");
+      setErrorMessage("An error occurred while resetting the password.");
       console.error(error); // Handle error
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="inputBox">
-        <input
-          type="password"
-          required
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
-          ref={passwordRef}
-        />
-        <span>Password</span>
-        <div id="toggle" ref={toggleRef}></div>
-      </div>
-      <div className="submit-input">
-        <input type="submit" className="submit" value="Envoyer" />
-      </div>
-    </form>
+    <div>
+      <h2>Modifier votre mot de passe</h2>
+      {successMessage && (
+        <div className="success-message">{successMessage}</div>
+      )}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      <form onSubmit={handleSubmit}>
+        <div className="inputBox">
+          <input
+            type="password"
+            required
+            id="password"
+            value={password}
+            onChange={handlePasswordChange}
+            ref={passwordRef}
+          />
+          <span>Password</span>
+          <div id="toggle" ref={toggleRef}></div>
+        </div>
+        <div className="submit-input">
+          <input type="submit" className="submit" value="Envoyer" />
+        </div>
+      </form>
+    </div>
   );
 };
