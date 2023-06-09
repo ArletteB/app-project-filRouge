@@ -59,7 +59,7 @@ const GroupList: React.FC = () => {
 
   return (
     <div>
-      {groupData.slice(0, showAllGroups ? groupData.length : 5).map((group) => (
+      {groupData.slice(0, showAllGroups ? groupData.length : 2).map((group) => (
         <div key={group.id} className="group-card">
           <div className="group-img">
             <img src={group.cover} alt="" />
@@ -76,7 +76,7 @@ const GroupList: React.FC = () => {
           </button>
         </div>
       ))}
-      {groupData.length > 5 && (
+      {groupData.length > 2 && (
         <div className="show-all-groups">
           <button onClick={toggleShowAllGroups}>
             {showAllGroups ? "Cacher les groupes" : "Voir tous"}
