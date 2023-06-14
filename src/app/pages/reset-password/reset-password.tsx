@@ -1,5 +1,5 @@
 import { FC, useRef, useEffect, useState } from "react";
-import "./reset-password.css";
+import "./reset-password.scss";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 

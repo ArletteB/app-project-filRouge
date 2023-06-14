@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { GroupType } from "../../../setup/types/group/group.type";
-import "./groupList.css";
+import "./groupList.scss";
 
 const GroupList: React.FC = () => {
   const [groupData, setGroupData] = useState<GroupType[]>([]);

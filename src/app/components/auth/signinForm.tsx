@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
-import "../../styles/auth.css";
+import "../../styles/auth.scss";
 import { useNavigate } from "react-router-dom";
 
 const SigninForm: React.FC = () => {

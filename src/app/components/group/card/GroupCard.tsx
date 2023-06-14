@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./groupCard.css";
+import "./groupCard.scss";
 import axios from "axios";
 import { GroupType } from "../../../../setup/types/group/group.type";
 import { type } from "os";
