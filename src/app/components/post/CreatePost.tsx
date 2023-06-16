@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import GroupService from "../../../setup/services/group.service";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PostCreateDto } from "../../../setup/types/group/group.type";
 
 const CreatePost: React.FC = () => {
   const { groupId } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [legend, setLegend] = useState("");
   const [description, setDescription] = useState("");
@@ -25,7 +25,7 @@ const CreatePost: React.FC = () => {
       await GroupService.createPost(Number(groupId), newPost);
 
       // Rediriger vers la page du groupe une fois le post créé
-      history.push(`/groupes/${groupId}`);
+      navigate(`/groupes/${groupId}`);
     } catch (error) {
       console.error("Error creating post:", error);
     }

@@ -15,23 +15,23 @@ const SingleGroup: React.FC<{}> = () => {
     try {
       const response = await GroupService.getOne(id);
       setOneGroup({ ...response });
-      console.log("fetchOneGroup : ", response);
     } catch (error) {
       console.log("Error fetching post", error);
     }
   };
   useEffect(() => {
-    fetchOneGroup();
+    if (id) {
+      fetchOneGroup();
+    }
   }, [id]);
 
   return (
-    <div className="group-list">
-      <h1>{oneGroup?.name}</h1>
+    <div className="single-group ">
+      <GroupCard groupes={oneGroup} />
       <Link to={`/groupes/${id}/posts/create`}>
         <button>Ajouter un post</button>
       </Link>
 
-      <GroupCard groupes={oneGroup} />
       <PostGroupCard groupId={oneGroup?.id} />
     </div>
   );

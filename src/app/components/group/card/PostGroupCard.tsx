@@ -21,8 +21,9 @@ const PostGroupCard = ({ groupId }: Props) => {
         console.error("Error fetching group posts:", error);
       }
     };
-
-    fetchGroupPosts();
+    if (groupId) {
+      fetchGroupPosts();
+    }
   }, [groupId]);
 
   return (

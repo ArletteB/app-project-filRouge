@@ -48,15 +48,20 @@ const GroupCard = ({ groupes }: Props) => {
   };
 
   return (
-    <div>
+    <div id="group-card-content">
       {/* {groupData.map((group) => ( */}
-      <div key={groupes.id} className="card-group-content">
-        <div className="group-img">
+      <div key={groupes.id} id="card-group-content">
+        <div className="card-group-image">
           <img src={groupes.cover} alt="" />
         </div>
-        <div className="group-name">{groupes.name}</div>
-        {/* <div className="group-member">Members: {group.users.length}</div> */}
-        <button onClick={() => joinGroup(groupes.id)}>Join Group</button>
+        <div className="card-group-name">
+          <h2 className="card-group-name-title ">{groupes.name}</h2>
+          {/* <h4 className="card-group-members">Members: {group.users.length}</h4> */}
+          <button onClick={() => joinGroup(groupes.id)}>Join Group</button>
+        </div>
+      </div>
+      <div className="card-group-description-infos">
+        <h3 className="card-group-description">{groupes.description}</h3>
       </div>
       {/* ))} */}
     </div>

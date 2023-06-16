@@ -11,7 +11,6 @@ const create = async (groupes: any) => {
 
 const getOne = async (id: any) => {
   const response = await api.get(`${GROUP_ENDPOINT}/${id}`);
-  console.log(response.data);
   return response.data;
 };
 
