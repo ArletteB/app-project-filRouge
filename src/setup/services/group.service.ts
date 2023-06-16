@@ -1,4 +1,5 @@
 // import axios from "axios";
+import { PostCreateDto, PostType } from "../types/group/group.type";
 import api from "./api.service";
 
 const GROUP_ENDPOINT = "/groupes";
@@ -27,11 +28,21 @@ const getOne = async (id: any) => {
 //   );
 //   return response.data;
 // };
+const getPostsByGroupId = async (groupId: number) => {
+  const response = await api.get(`${GROUP_ENDPOINT}/${groupId}/posts`);
+  return response.data as PostType[];
+};
+const createPost = async (groupId: number, post: PostCreateDto) => {
+  const response = await api.post(`${GROUP_ENDPOINT}/${groupId}/posts`, post);
+  return response.data;
+};
 
 const GroupService = {
   // getAll,
   create,
   getOne,
+  getPostsByGroupId,
+  createPost,
 };
 
 export default GroupService;

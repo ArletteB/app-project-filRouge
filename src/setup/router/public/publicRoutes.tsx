@@ -8,6 +8,7 @@ import { ResetPasswordPage } from "../../../app/pages/reset-password/reset-passw
 import GroupCard from "../../../app/components/group/card/GroupCard";
 import GroupList from "../../../app/components/group/GroupList";
 import SingleGroup from "../../../app/components/group/SingleGroup";
+import CreatePost from "../../../app/components/post/CreatePost";
 
 export const PublicRoutes = () => {
   return (
@@ -20,6 +21,8 @@ export const PublicRoutes = () => {
       <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
       <Route path="/groupe/:id" element={<SingleGroup />} />
       <Route path="/groupes" element={<GroupList />} />
+      <Route path="/groupes/:groupId/posts/create" element={<CreatePost />} />
+
       {/* <Route path="*" element={<NotFoundPage />} />  404 page*/}
     </Routes>
   );
