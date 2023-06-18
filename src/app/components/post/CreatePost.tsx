@@ -47,8 +47,9 @@ const CreatePost: React.FC = () => {
           onChange={(event) => setDescription(event.target.value)}
         />
         <input
-          type="text"
+          type="file"
           placeholder="URL de l'image"
+          accept="image/*"
           value={image}
           onChange={(event) => setImage(event.target.value)}
         />

@@ -2,7 +2,6 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserType } from "../../../setup/types/auth/user.type";
 
-
 const SignupForm: React.FC = () => {
   const [redirectTo, setRedirectTo] = useState(false);
   const [credentials, setCredentials] = useState<Partial<UserType>>({
@@ -53,19 +52,20 @@ const SignupForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSignup}>
-      <div className="wrapper">
-        <div className="container main">
-          <div className="row">
-            <div className="col-md-6 side-image">
-              <div className="text">
+      <div className="a-auth-content">
+        <div className="a-auth-main">
+          <div className="a-auth-row">
+            <div className="col-md-6 a-side-image">
+              <div className="a-side-text">
                 <p>
-                  Rejoindre la communauté <i>- MonBonVoisinage</i>
+                  Rejoindre la communauté <br />
+                  <i> SociaLink</i>
                 </p>
               </div>
             </div>
-            <div className="col-md-6 right">
-              <div className="input-box">
-                <div className="header-content">
+            <div className="col-md-6 a-auth-infos">
+              <div className="a-input-content">
+                <div className="a-header-content">
                   <h2>Inscription</h2>
                 </div>
                 <div className="form_wrap">

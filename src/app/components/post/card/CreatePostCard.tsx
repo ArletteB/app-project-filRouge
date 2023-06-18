@@ -53,11 +53,11 @@ const CreatePostCard = () => {
         required
       />
       <input
-        type="text"
+        type="file"
         name="image"
         value={postData.image}
         onChange={handleInputChange}
-        placeholder="Image URL"
+        placeholder="Image tests"
         required
       />
       <button type="submit">Créer le post</button>

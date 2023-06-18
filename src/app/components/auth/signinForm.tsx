@@ -38,19 +38,19 @@ const SigninForm: React.FC = () => {
 
   return (
     <form action="" onSubmit={handleSignin}>
-      <div className="wrapper">
-        <div className="container main">
-          <div className="row">
-            <div className="col-md-6 side-image">
-              <div className="text">
+      <div className="a-auth-content">
+        <div className="a-auth-main">
+          <div className="a-auth-row">
+            <div className="col-md-6 a-side-image">
+              <div className="a-side-text">
                 <p>
                   Rejoindre la communauté <i>- MonBonVoisinage</i>
                 </p>
               </div>
             </div>
-            <div className="col-md-6 right">
-              <div className="input-box">
-                <div className="header-content">
+            <div className="col-md-6 a-auth-infos">
+              <div className="a-input-content">
+                <div className="a-header-content">
                   <h2>Se connecter</h2>
                 </div>
                 <div className="input-field">
