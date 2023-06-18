@@ -53,7 +53,7 @@ const SigninForm: React.FC = () => {
                 <div className="a-header-content">
                   <h2>Se connecter</h2>
                 </div>
-                <div className="input-field">
+                <div className="a-input-field">
                   <input
                     type="email"
                     className="input"
@@ -65,7 +65,7 @@ const SigninForm: React.FC = () => {
                   />
                   <label htmlFor="email">Email</label>
                 </div>
-                <div className="input-field">
+                <div className="a-input-field">
                   <input
                     type="password"
                     className="input"
@@ -79,7 +79,7 @@ const SigninForm: React.FC = () => {
                 <div className="forgotPassword">
                   <a href="/forgot-password">Mot de passe oublié ?</a>
                 </div>
-                <div className="input-field">
+                <div className="a-input-field">
                   <input
                     type="submit"
                     value={`S'identifier`}

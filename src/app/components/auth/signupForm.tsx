@@ -68,13 +68,13 @@ const SignupForm: React.FC = () => {
                 <div className="a-header-content">
                   <h2>Inscription</h2>
                 </div>
-                <div className="form_wrap">
+                <div className="a-form_wrap">
                   {/*  First step */}
                   {step === 1 && (
                     <div className="form_1 data_info">
                       <h3>Identité</h3>
                       <div className="form_container">
-                        <div className="input-field">
+                        <div className="a-input-field">
                           <input
                             type="text"
                             className="input"
@@ -85,7 +85,7 @@ const SignupForm: React.FC = () => {
                           />
                           <label htmlFor="firstName">Nom</label>
                         </div>
-                        <div className="input-field">
+                        <div className="a-input-field">
                           <input
                             type="text"
                             className="input"
@@ -97,7 +97,7 @@ const SignupForm: React.FC = () => {
                           <label htmlFor="lastName">Prenom</label>
                         </div>
                       </div>
-                      <div className="common_btns form_1_btns">
+                      <div className="a-auth-btn form_1_btns">
                         <button
                           type="button"
                           className="btn_next"
@@ -113,7 +113,7 @@ const SignupForm: React.FC = () => {
                     <div className="form_2 data_info style">
                       <h3>Identifiant</h3>
                       <div className="form_container">
-                        <div className="input-field">
+                        <div className="a-input-field">
                           <input
                             type="email"
                             className="input"
@@ -124,7 +124,7 @@ const SignupForm: React.FC = () => {
                           />
                           <label htmlFor="email">Email</label>
                         </div>
-                        <div className="input-field">
+                        <div className="a-input-field">
                           <input
                             type="password"
                             className="input"
@@ -136,7 +136,7 @@ const SignupForm: React.FC = () => {
                           <label htmlFor="password">Password</label>
                         </div>
                       </div>
-                      <div className="common_btns form_2_btns style">
+                      <div className="a-auth-btn form_2_btns style">
                         <button
                           type="button"
                           className="btn_back"

@@ -58,51 +58,69 @@
             display: flex;
             justify-content: center;
           }
+          .a-form_wrap {
+            margin-bottom: 35px;
+            h3 {
+              text-align: center;
+              text-transform: uppercase;
+              margin-bottom: 20px;
+            }
+          }
+          .a-input-field {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: 0 10px 0 10px;
+            .input {
+              height: 45px;
+              width: 100%;
+              background: transparent;
+              border: none;
+              border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+              outline: none;
+              margin-bottom: 20px;
+              color: #40414a;
+            }
+          }
+          .forgotPassword {
+            text-align: right;
+            margin-bottom: 20px;
+            a {
+              text-decoration: none;
+              font-weight: 700;
+              transition: 0.5s;
+            }
+            a:hover {
+              text-decoration: underline;
+              color: #f49030;
+            }
+          }
         }
       }
     }
   }
 }
-
-.a-input-content {
-  width: 330px;
-  box-sizing: border-box;
-}
-.input-field {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  padding: 0 10px 0 10px;
-}
-.input {
-  height: 45px;
-  width: 100%;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  outline: none;
-  margin-bottom: 20px;
-  color: #40414a;
-}
-.a-input-content .input-field label {
+.a-input-field label {
   position: absolute;
   top: 10px;
   left: 10px;
   pointer-events: none;
   transition: 0.5s;
 }
-.input-field .input:focus ~ label {
+.a-input-field .input:focus ~ label {
   top: -10px;
   font-size: 13px;
 }
-.input-field .input:valid ~ label {
+.a-input-field .input:valid ~ label {
   top: -10px;
   font-size: 13px;
-  color: #5d5076;
+  color: green;
+  font-weight: bold;
 }
-.input-field .input:focus,
-.input-field .input:valid {
-  border-bottom: 1px solid #743ae1;
+.a-input-field .input:invalid ~ label {
+  font-size: 13px;
+  color: red;
+  font-weight: bold;
 }
 .submit {
   border: none;
@@ -127,37 +145,26 @@ span a:hover {
   color: #000;
 }
 
-.a-auth-content .form_wrap {
-  margin-bottom: 35px;
-}
-
-.a-auth-content .form_wrap h3 {
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
 .a-auth-content .btns_wrap {
   width: 350px;
   max-width: 100%;
   margin: 0 auto;
 }
 
-.common_btns {
+.a-auth-btn {
   display: flex;
   justify-content: space-between;
 }
 
-.common_btns.form_1_btns {
-  justify-content: flex-end;
-}
+// .a-auth-btn.form_1_btns {
+//   justify-content: flex-end;
+// }
 
-.common_btns button,
-.common_btns input {
+.a-auth-btn button,
+.a-auth-btn input {
   border: 0;
   padding: 12px 15px;
   background: #f49030;
-  /* color: white; */
   width: 135px;
   justify-content: center;
   display: flex;
@@ -168,38 +175,19 @@ span a:hover {
   cursor: pointer;
 }
 
-.common_btns button.btn_next:hover,
-.common_btns .btn_done:hover,
-.common_btns button.btn_back:hover {
+.a-auth-btn button.btn_next:hover,
+.a-auth-btn .btn_done:hover,
+.a-auth-btn button.btn_back:hover {
   background: rgba(244, 144, 48, 0.49);
 }
 
-.common_btns button.btn_back {
+.a-auth-btn button.btn_back {
   background: #ececec;
 }
-.common_btns .btn_done {
+.a-auth-btn .btn_done {
   border: none;
   outline: none;
   height: 45px;
   border-radius: 5px;
   transition: 0.4s;
-}
-
-@media only screen and (max-width: 768px) {
-  // img {
-  //   width: 35px;
-  //   position: absolute;
-  //   top: 20px;
-  //   left: 47%;
-  // }
-  .text {
-    position: absolute;
-    top: 70%;
-    text-align: center;
-  }
-
-  // .a-auth-row {
-  //   max-width: 420px;
-  //   width: 100%;
-  // }
 }

@@ -5,7 +5,6 @@ import { SignupPage } from "../../../app/pages/auth/signupPage";
 import { Test } from "../../../app/pages/home/test";
 import { ForgotPasswordPage } from "../../../app/pages/forgot-password/forgot-password";
 import { ResetPasswordPage } from "../../../app/pages/reset-password/reset-password";
-import GroupCard from "../../../app/components/group/card/GroupCard";
 import GroupList from "../../../app/components/group/GroupList";
 import SingleGroup from "../../../app/components/group/SingleGroup";
 import CreatePost from "../../../app/components/post/CreatePost";
