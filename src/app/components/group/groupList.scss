@@ -1,43 +1,47 @@
-.group-card {
+.group-list-card {
   display: flex;
   justify-content: space-between;
   margin: 10px;
   padding: 10px;
+  width: auto;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
   /* box-shadow: 0 0 5px #ccc; */
   /* transition: all 0.3s ease-in-out; */
-}
-.group-img {
-  width: 25%;
-  height: 100px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
+  .group-list-img {
+    width: auto;
+    height: 98px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    img {
+      width: 100px;
+      height: 63px;
 
-.group-img img {
-  width: 100%;
-  height: 17vh;
-  object-fit: cover;
-  /* height: 100%;
-  border-radius: 50%; */
+      border-radius: 4px 0 0 4px;
+      object-fit: cover;
+      object-position: center;
+      /* height: 100%;
+      border-radius: 50%; */
+    }
+  }
 }
 
 .group-infos-content {
   width: 75%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .group-infos-content .group-infos-name {
-  font-size: 1.2rem;
+  font-size: 15px;
   font-weight: bold;
 }
 
 .group-infos-content .group-infos-description {
-  font-size: 1rem;
+  font-size: 12px;
   font-weight: 300;
 }
 
@@ -46,16 +50,20 @@
   font-weight: 300;
 } */
 
-.btn-joingroup {
-  width: 36%;
+.group-infos-bouton {
+  width: 30%;
+  align-self: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.group-btn-joingroup {
+  width: auto;
   height: 5vh;
-  margin-top: 10px;
   padding: 5px;
   border: 1px solid #f49030;
   border-radius: 26px;
   background-color: #fff;
-  color: #000;
-  font-size: 1rem;
+  font-size: 12px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease-in-out;

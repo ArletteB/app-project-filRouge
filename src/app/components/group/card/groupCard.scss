@@ -1,5 +1,5 @@
-#card-group-content {
-  .card-group-image {
+.group-card-content {
+  .group-card-image {
     width: auto;
     height: 250px;
 
@@ -9,20 +9,20 @@
       height: 250px;
     }
   }
-  .card-group-name {
-    .card-group-name-title {
+  .group-card-name {
+    .group-card-name-title {
       font-size: 1.2rem;
       font-weight: bold;
       margin: 0;
       padding: 0;
     }
-    .card-group-members {
+    .group-card-members {
       font-size: 1rem;
       font-weight: 300;
     }
   }
 }
-.card-group-description-infos {
+.group-card-description-infos {
   font-size: 1rem;
   font-weight: 300;
   background: #f5f5f5;
@@ -31,7 +31,7 @@
   border-radius: 5px;
 }
 
-.group-img img {
-  width: 100%;
-  object-fit: none;
-}
+// .group-img img {
+//   width: 100%;
+//   object-fit: none;
+// }

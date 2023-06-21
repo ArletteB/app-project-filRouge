@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { PostType } from "../../../../setup/types/group/group.type";
+import "./postGroupCard.scss";
+
 
 type Props = {
   groupId: number;

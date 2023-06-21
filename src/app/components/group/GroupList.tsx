@@ -60,8 +60,8 @@ const GroupList: React.FC = () => {
   return (
     <div>
       {groupData.slice(0, showAllGroups ? groupData.length : 2).map((group) => (
-        <div key={group.id} className="group-card">
-          <div className="group-img">
+        <div key={group.id} className="group-list-card">
+          <div className="group-list-img">
             <img src={group.cover} alt="" />
           </div>
           <div className="group-infos-content">
@@ -71,9 +71,14 @@ const GroupList: React.FC = () => {
               {truncateDescription(group.description)}
             </div>
           </div>
-          <button className="btn-joingroup" onClick={() => joinGroup(group.id)}>
-            Rejoindre
-          </button>
+          <div className="group-infos-bouton">
+            <button
+              className="group-btn-joingroup"
+              onClick={() => joinGroup(group.id)}
+            >
+              Rejoindre
+            </button>
+          </div>
         </div>
       ))}
       {groupData.length > 2 && (
