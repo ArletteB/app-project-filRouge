@@ -3,6 +3,7 @@ import { PostCreateDto, PostType } from "../types/group/group.type";
 import api from "./api.service";
 
 const GROUP_ENDPOINT = "/groupes";
+const POST_ENDPOINT = "/posts";
 
 const create = async (groupes: any) => {
   const response = await api.post(GROUP_ENDPOINT, groupes);
@@ -14,30 +15,22 @@ const getOne = async (id: any) => {
   return response.data;
 };
 
-// const getAll = async () => {
-//   const response = await axios.get(
-//     `${process.env.REACT_APP_API_URL}/groups/:id`
-//   );
-//   return response.data;
-// };
-
-// const getOne = async (id: number) => {
-//   const response = await axios.get(
-//     `${process.env.REACT_APP_API_URL}/groups/${id}`
-//   );
-//   return response.data;
-// };
 const getPostsByGroupId = async (groupId: number) => {
   const response = await api.get(`${GROUP_ENDPOINT}/${groupId}/posts`);
   return response.data as PostType[];
 };
+
 const createPost = async (groupId: number, post: PostCreateDto) => {
-  const response = await api.post(`${GROUP_ENDPOINT}/${groupId}/posts`, post);
-  return response.data;
+  try {
+    const response = await api.post<PostType>(POST_ENDPOINT, post);
+    return response.data;
+  } catch (error) {
+    console.log("Erreur lors de la création du post :", error);
+    throw error;
+  }
 };
 
 const GroupService = {
-  // getAll,
   create,
   getOne,
   getPostsByGroupId,

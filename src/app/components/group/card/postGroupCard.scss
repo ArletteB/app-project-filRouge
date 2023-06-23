@@ -2,6 +2,7 @@
   position: relative;
   width: 600px;
   min-height: 450px;
+  margin: auto;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15), -5px -5px 5px rgba(0, 0, 0, 0.15);
   padding: 20px;
 }
@@ -110,7 +111,6 @@ ul li img {
   width: 600px;
   height: 420px;
   margin: 10px 0 15px;
-  margin-left: -20px;
   overflow: hidden;
 }
 .coverFull {

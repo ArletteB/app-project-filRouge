@@ -60,7 +60,7 @@ const CreatePostCard = () => {
         placeholder="Image tests"
         required
       />
-      <button type="submit">Créer le post</button>
+      <button type="submit"> Poster</button>
     </form>
   );
 };

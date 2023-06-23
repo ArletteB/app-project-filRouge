@@ -25,7 +25,7 @@ const CreatePost: React.FC = () => {
       await GroupService.createPost(Number(groupId), newPost);
 
       // Rediriger vers la page du groupe une fois le post créé
-      navigate(`/groupes/${groupId}`);
+      navigate(`/groupe/${groupId}`);
     } catch (error) {
       console.error("Error creating post:", error);
     }
