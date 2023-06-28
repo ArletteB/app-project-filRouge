@@ -21,6 +21,7 @@ const getPostsByGroupId = async (groupId: number) => {
 };
 
 const createPost = async (groupId: number, post: PostCreateDto) => {
+  console.log("post", post);
   try {
     const response = await api.post<PostType>(POST_ENDPOINT, post);
     return response.data;

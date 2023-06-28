@@ -1,16 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GroupService from "../../../setup/services/group.service";
 import { useNavigate } from "react-router-dom";
-import { PostCreateDto } from "../../../setup/types/group/group.type";
+import { PostCreateDto, PostType } from "../../../setup/types/group/group.type";
 
 const CreatePost: React.FC = () => {
+  const [groupPosts, setGroupPosts] = useState<PostType[]>([]);
+
   const { groupId } = useParams();
   const navigate = useNavigate();
 
   const [legend, setLegend] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const posts = await GroupService.getPostsByGroupId(Number(groupId));
+        setGroupPosts(posts);
+      } catch (error) {
+        console.error("Error fetching group posts:", error);
+      }
+    };
+
+    fetchPosts();
+  }, [groupId]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -20,9 +35,17 @@ const CreatePost: React.FC = () => {
         legend,
         description,
         image,
+        groupe: {
+          id: Number(groupId),
+        },
       };
 
-      await GroupService.createPost(Number(groupId), newPost);
+      const createdPost = await GroupService.createPost(
+        Number(groupId),
+        newPost
+      );
+
+      setGroupPosts((prevPosts) => [...prevPosts, createdPost]);
 
       // Rediriger vers la page du groupe une fois le post créé
       navigate(`/groupe/${groupId}`);

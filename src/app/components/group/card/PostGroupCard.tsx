@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { PostType } from "../../../../setup/types/group/group.type";
 import "./postGroupCard.scss";
-
+import GroupService from "../../../../setup/services/group.service";
 
 type Props = {
   groupId: number;
@@ -10,14 +10,11 @@ type Props = {
 
 const PostGroupCard = ({ groupId }: Props) => {
   const [posts, setGroupPosts] = useState<PostType[]>([]);
-
   useEffect(() => {
     const fetchGroupPosts = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/groupes/${groupId}/posts`
-        );
-        const posts = response.data;
+        console.log(groupId);
+        const posts = await GroupService.getPostsByGroupId(groupId);
         setGroupPosts(posts);
       } catch (error) {
         console.error("Error fetching group posts:", error);

@@ -25,4 +25,7 @@ export interface PostCreateDto {
   legend: string;
   description: string;
   image: string;
+  groupe: {
+    id: number;
+  };
 }
