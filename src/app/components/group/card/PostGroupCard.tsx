@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { PostType } from "../../../../setup/types/group/group.type";
 import "./postGroupCard.scss";
 import GroupService from "../../../../setup/services/group.service";

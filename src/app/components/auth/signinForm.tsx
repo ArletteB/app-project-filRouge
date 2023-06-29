@@ -3,9 +3,12 @@ import { useState } from "react";
 import "../../styles/auth.scss";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../setup/contexts/UserContext";
+import instance, {
+  setAuthorizationHeader,
+} from "../../../setup/services/api.service";
 
 const SigninForm: React.FC = () => {
-  const { user, setUser } = useUserContext();
+  const { setUser } = useUserContext();
   const [credentials, setCredentials] = useState({});
   const [redirectTo, setRedirectTo] = useState(false);
 
@@ -17,25 +20,54 @@ const SigninForm: React.FC = () => {
     setCredentials({ ...credentials, [name]: value });
   };
 
+  // const handleSignin = async (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const response = await instance.post(
+  //     `${process.env.REACT_APP_API_URL}/auth/signin`,
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(credentials),
+  //     }
+  //   );
+
+  //   const data = await response.data;
+
+  //   // localStorage.setItem("token", data.access_token),
+  //   setUser(data);
+  //   setAuthorizationHeader(data.access_token);
+  //   // setToken(data.token);
+  //   console.log(data);
+  //   setRedirectTo(!redirectTo);
+
+  //   if (redirectTo) {
+  //     navigate("/");
+  //   }
+  // };
+
   const handleSignin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/auth/signin`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      }
-    );
-    const data = await response.json();
-    setUser(data);
-    console.log(data);
-    setRedirectTo(!redirectTo);
 
-    if (redirectTo) {
-      navigate("/");
+    try {
+      const response = await instance.post(
+        "/auth/signin",
+        JSON.stringify(credentials)
+      );
+
+      const data = response.data;
+      setUser(data);
+      console.log(data);
+      setRedirectTo(!redirectTo);
+
+      if (redirectTo) {
+        navigate("/");
+      }
+
+      setAuthorizationHeader(data.access_token); // Appel de la fonction setAuthorizationHeader avec le jeton d'authentification
+    } catch (error) {
+      console.error("Erreur de connexion :", error);
     }
   };
 

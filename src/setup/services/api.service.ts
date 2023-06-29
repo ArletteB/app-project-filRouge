@@ -1,8 +1,4 @@
-import axios, {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosRequestHeaders,
-} from "axios";
+import axios, { AxiosError } from "axios";
 
 const instance = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}`,
@@ -23,15 +19,8 @@ instance.interceptors.response.use(
   }
 );
 
-// instance.interceptors.request.use((config: AxiosRequestConfig) => {
-//   const token = localStorage.getItem("token");
-//   if (token) {
-//     config.headers = {
-//       ...config.headers,
-//       Authorization: `Bearer ${token}`,
-//     };
-//   }
-//   return config;
-// });
+export const setAuthorizationHeader = (token: string) => {
+  instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+};
 
 export default instance;
