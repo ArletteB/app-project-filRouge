@@ -3,9 +3,12 @@ import { useState } from "react";
 import "../../styles/auth.scss";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../setup/contexts/UserContext";
-import instance, {
+import api, {
   setAuthorizationHeader,
 } from "../../../setup/services/api.service";
+import { access } from "fs";
+import TokenService from "../../../setup/services/token.service";
+import AuthService from "../../../setup/services/auth.service";
 
 const SigninForm: React.FC = () => {
   const { setUser } = useUserContext();
@@ -22,7 +25,7 @@ const SigninForm: React.FC = () => {
 
   // const handleSignin = async (e: FormEvent<HTMLFormElement>) => {
   //   e.preventDefault();
-  //   const response = await instance.post(
+  //   const response = await api.post(
   //     `${process.env.REACT_APP_API_URL}/auth/signin`,
   //     {
   //       method: "POST",
@@ -51,21 +54,20 @@ const SigninForm: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await instance.post(
-        "/auth/signin",
-        JSON.stringify(credentials)
-      );
-
-      const data = response.data;
-      setUser(data);
-      console.log(data);
+      const { access_token } = await AuthService.signin(credentials);
+      // const data = response.data;
+      TokenService.setTokenInLocalStorage(access_token);
+      const user = TokenService.getUserInToken(access_token) as any;
+      setUser(user);
+      console.log("response ", user);
       setRedirectTo(!redirectTo);
 
       if (redirectTo) {
         navigate("/");
       }
 
-      setAuthorizationHeader(data.access_token); // Appel de la fonction setAuthorizationHeader avec le jeton d'authentification
+      // Appel de la fonction setAuthorizationHeader avec le jeton d'authentification en paramètre
+      setAuthorizationHeader(access_token);
     } catch (error) {
       console.error("Erreur de connexion :", error);
     }

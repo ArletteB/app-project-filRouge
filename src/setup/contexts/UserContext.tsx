@@ -8,9 +8,8 @@ interface UserContextType {
 
 // Définir l'interface pour l'objet utilisateur
 interface User {
-  name: string;
+  firstName: string;
   email: string;
-  // autres propriétés utilisateur
 }
 
 interface PropsChildren {

@@ -7,10 +7,6 @@ export interface UserType {
   bio: string;
   imgProfile: string;
   gender: string;
-  //   token: string;
-  //   teacher?: TeacherType;
-  //   subject?: SubjectType;
-  //   delivrables?: DelivrableType[];
 }
 
 export type ResetPassword = {

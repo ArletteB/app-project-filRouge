@@ -1,13 +1,13 @@
 import axios, { AxiosError } from "axios";
 
-const instance = axios.create({
+const api = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}`,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-instance.interceptors.response.use(
+api.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     if (error.response?.status === 401) {
@@ -19,8 +19,19 @@ instance.interceptors.response.use(
   }
 );
 
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 export const setAuthorizationHeader = (token: string) => {
-  instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 
-export default instance;
+export default api;

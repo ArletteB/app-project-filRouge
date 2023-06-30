@@ -32,9 +32,44 @@ const GroupCard = ({ groupes }: Props) => {
   //     console.error("Error fetching group data:", error);
   //   }
   // };
+  useEffect(() => {
+    // Fonction pour récupérer l'ID de l'utilisateur
+    const fetchUserId = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/user`
+        );
+        const { userId } = response.data; // Assurez-vous que l'API renvoie la clé "userId" dans la réponse
+        setUserId(userId);
+      } catch (error) {
+        console.error("Error fetching user ID:", error);
+      }
+    };
 
+    fetchUserId();
+  }, []);
+
+  // const joinGroup = async (groupId: number) => {
+  //   try {
+  //     // Appel à votre service API pour rejoindre le groupe
+  //     await axios.patch(
+  //       `${process.env.REACT_APP_API_URL}/users/${userId}/group/${groupId}`
+  //     );
+
+  //     // Mise à jour des données du groupe après avoir rejoint
+  //     // fetchGroupData();
+  //   } catch (error) {
+  //     console.error("Error joining group:", error);
+  //   }
+  // };
   const joinGroup = async (groupId: number) => {
     try {
+      // Vérifiez si userId est défini
+      if (!userId) {
+        console.error("UserID is not defined");
+        return;
+      }
+
       // Appel à votre service API pour rejoindre le groupe
       await axios.patch(
         `${process.env.REACT_APP_API_URL}/users/${userId}/group/${groupId}`
@@ -46,7 +81,6 @@ const GroupCard = ({ groupes }: Props) => {
       console.error("Error joining group:", error);
     }
   };
-
   return (
     <div id="group-card">
       {/* {groupData.map((group) => ( */}

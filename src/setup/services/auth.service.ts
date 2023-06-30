@@ -1,6 +1,18 @@
 import { ResetPassword } from "../types/auth/user.type";
+import api from "./api.service";
 
-export const AuthService = {};
+const AUTH_ENDPOINT = "/auth";
+
+const signin = async (credentials: any) => {
+  const response = await api.post(`${AUTH_ENDPOINT}/signin`, credentials);
+
+  return response.data;
+};
+
+// const signup = async (credentials) => {
+//   const response = await api.post(`${AUTH_ENDPOINT}/signup`, credentials)
+//   return response.data
+// }
 
 export const resetPassword = async (data: ResetPassword) => {
   const response = await fetch(
@@ -17,3 +29,9 @@ export const resetPassword = async (data: ResetPassword) => {
   const json = await response.json();
   return json;
 };
+
+const AuthService = {
+  signin,
+};
+
+export default AuthService;
