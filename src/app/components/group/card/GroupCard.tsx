@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import "./groupCard.scss";
 import axios from "axios";
 import { GroupType } from "../../../../setup/types/group/group.type";
@@ -10,34 +9,6 @@ type Props = {
 const GroupCard = ({ groupes }: Props) => {
   const { user } = useUserContext();
 
-  useEffect(() => {
-    // Fonction pour récupérer l'ID de l'utilisateur
-    const fetchUserId = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/user`
-        );
-      } catch (error) {
-        console.error("Error fetching user ID:", error);
-      }
-    };
-
-    fetchUserId();
-  }, []);
-
-  // const joinGroup = async (groupId: number) => {
-  //   try {
-  //     // Appel à votre service API pour rejoindre le groupe
-  //     await axios.patch(
-  //       `${process.env.REACT_APP_API_URL}/users/${userId}/group/${groupId}`
-  //     );
-
-  //     // Mise à jour des données du groupe après avoir rejoint
-  //     // fetchGroupData();
-  //   } catch (error) {
-  //     console.error("Error joining group:", error);
-  //   }
-  // };
   const joinGroup = async (groupId: number) => {
     try {
       // Appel à votre service API pour rejoindre le groupe
