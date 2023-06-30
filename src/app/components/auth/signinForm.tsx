@@ -3,10 +3,7 @@ import { useState } from "react";
 import "../../styles/auth.scss";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../setup/contexts/UserContext";
-import api, {
-  setAuthorizationHeader,
-} from "../../../setup/services/api.service";
-import { access } from "fs";
+import { setAuthorizationHeader } from "../../../setup/services/api.service";
 import TokenService from "../../../setup/services/token.service";
 import AuthService from "../../../setup/services/auth.service";
 
@@ -22,33 +19,6 @@ const SigninForm: React.FC = () => {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
   };
-
-  // const handleSignin = async (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   const response = await api.post(
-  //     `${process.env.REACT_APP_API_URL}/auth/signin`,
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(credentials),
-  //     }
-  //   );
-
-  //   const data = await response.data;
-
-  //   // localStorage.setItem("token", data.access_token),
-  //   setUser(data);
-  //   setAuthorizationHeader(data.access_token);
-  //   // setToken(data.token);
-  //   console.log(data);
-  //   setRedirectTo(!redirectTo);
-
-  //   if (redirectTo) {
-  //     navigate("/");
-  //   }
-  // };
 
   const handleSignin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

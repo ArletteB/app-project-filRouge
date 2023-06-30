@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { GroupType } from "../../../setup/types/group/group.type";
 import "./groupList.scss";
+import { useUserContext } from "../../../setup/contexts/UserContext";
 
 const GroupList: React.FC = () => {
   const [groupData, setGroupData] = useState<GroupType[]>([]);
+  const { user } = useUserContext();
+
   const [userId, setUserId] = useState<string>("");
   const [showAllGroups, setShowAllGroups] = useState<boolean>(false);
 
@@ -32,9 +35,11 @@ const GroupList: React.FC = () => {
   const joinGroup = async (groupId: number) => {
     try {
       // Appel à votre service API pour rejoindre le groupe
-      await axios.patch(
-        `${process.env.REACT_APP_API_URL}/users/${userId}/group/${groupId}`
-      );
+      if (user) {
+        await axios.patch(
+          `${process.env.REACT_APP_API_URL}/users/${user.id}/group/${groupId}`
+        );
+      }
 
       // Mise à jour des données du groupe après avoir rejoint
       fetchGroupData();

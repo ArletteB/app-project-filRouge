@@ -1,15 +1,10 @@
 import { createContext, useContext, useState } from "react";
+import { UserType } from "../types/auth/user.type";
 
 // Définir l'interface pour le contexte utilisateur
 interface UserContextType {
-  user: User | null;
-  setUser: (user: User | null) => void;
-}
-
-// Définir l'interface pour l'objet utilisateur
-interface User {
-  firstName: string;
-  email: string;
+  user: UserType | null;
+  setUser: (user: UserType | null) => void;
 }
 
 interface PropsChildren {
@@ -21,7 +16,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 // Créer un composant fournisseur de contexte pour envelopper votre application
 export const UserProvider = ({ children }: PropsChildren) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

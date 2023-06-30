@@ -7,7 +7,7 @@ const getUserInToken = (access_token: string) => {
 
 // Stockage du jeton d'authentification dans le local storage
 const setTokenInLocalStorage = (access_token: string) => {
-  localStorage.setItem("access_token: string", access_token);
+  localStorage.setItem("access_token", access_token);
 };
 
 const getTokenFromLocalStorage = () => {
@@ -26,7 +26,7 @@ const removeTokenFromLocalStorage = () => {
 
 const isValidToken = (access_token: string) => {
   const tokendecode = jwtDecode(access_token) as any;
-  const currentTime = Date.now() / 1000;
+  const currentTime = Date.now() / 5000;
   if (tokendecode.exp < currentTime) {
     return false;
   }

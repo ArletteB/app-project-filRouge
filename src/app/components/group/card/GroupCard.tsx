@@ -1,37 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./groupCard.scss";
 import axios from "axios";
 import { GroupType } from "../../../../setup/types/group/group.type";
-import { type } from "os";
-import exp from "constants";
+import { useUserContext } from "../../../../setup/contexts/UserContext";
 type Props = {
   groupes: GroupType;
 };
 
 const GroupCard = ({ groupes }: Props) => {
-  const [groupData, setGroupData] = useState<GroupType[]>([]);
-  const [userId, setUserId] = useState<string>("");
+  const { user } = useUserContext();
 
-  // useEffect(() => {
-  //   fetchGroupData();
-  //   const user = localStorage.getItem("user");
-  //   if (user) {
-  //     const userObj = JSON.parse(user);
-  //     setUserId(userObj.id);
-  //   }
-  // }, []);
-
-  // const fetchGroupData = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${process.env.REACT_APP_API_URL}/groupes/`
-  //     );
-  //     const groups = response.data;
-  //     setGroupData(groups);
-  //   } catch (error) {
-  //     console.error("Error fetching group data:", error);
-  //   }
-  // };
   useEffect(() => {
     // Fonction pour récupérer l'ID de l'utilisateur
     const fetchUserId = async () => {
@@ -39,8 +17,6 @@ const GroupCard = ({ groupes }: Props) => {
         const response = await axios.get(
           `${process.env.REACT_APP_API_URL}/user`
         );
-        const { userId } = response.data; // Assurez-vous que l'API renvoie la clé "userId" dans la réponse
-        setUserId(userId);
       } catch (error) {
         console.error("Error fetching user ID:", error);
       }
@@ -64,16 +40,12 @@ const GroupCard = ({ groupes }: Props) => {
   // };
   const joinGroup = async (groupId: number) => {
     try {
-      // Vérifiez si userId est défini
-      if (!userId) {
-        console.error("UserID is not defined");
-        return;
-      }
-
       // Appel à votre service API pour rejoindre le groupe
-      await axios.patch(
-        `${process.env.REACT_APP_API_URL}/users/${userId}/group/${groupId}`
-      );
+      if (user) {
+        await axios.patch(
+          `${process.env.REACT_APP_API_URL}/users/${user.id}/group/${groupId}`
+        );
+      }
 
       // Mise à jour des données du groupe après avoir rejoint
       // fetchGroupData();
