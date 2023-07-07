@@ -31,11 +31,22 @@ const createPost = async (groupId: number, post: PostCreateDto) => {
   }
 };
 
+const reloadData = async (groupId: number) => {
+  try {
+    const response = await api.get(`${GROUP_ENDPOINT}/${groupId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error reloading group data:", error);
+    throw error;
+  }
+};
+
 const GroupService = {
   create,
   getOne,
   getPostsByGroupId,
   createPost,
+  reloadData,
 };
 
 export default GroupService;

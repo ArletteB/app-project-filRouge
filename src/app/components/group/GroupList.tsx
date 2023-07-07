@@ -3,10 +3,13 @@ import axios from "axios";
 import { GroupType } from "../../../setup/types/group/group.type";
 import "./groupList.scss";
 import { useUserContext } from "../../../setup/contexts/UserContext";
+import GroupService from "../../../setup/services/group.service";
+import { Link } from "react-router-dom";
 
 const GroupList: React.FC = () => {
   const [groupData, setGroupData] = useState<GroupType[]>([]);
   const { user } = useUserContext();
+  const [reloadData, setReloadData] = useState(false);
 
   const [userId, setUserId] = useState<string>("");
   const [showAllGroups, setShowAllGroups] = useState<boolean>(false);
@@ -39,15 +42,24 @@ const GroupList: React.FC = () => {
         await axios.patch(
           `${process.env.REACT_APP_API_URL}/users/${user.id}/group/${groupId}`
         );
+        setReloadData(!reloadData);
       }
-
-      // Mise à jour des données du groupe après avoir rejoint
-      fetchGroupData();
     } catch (error) {
       console.error("Error joining group:", error);
     }
   };
+  if (reloadData) {
+    const reloadGroupData = async () => {
+      try {
+        await GroupService.reloadData(groupData[0].id);
+        setReloadData(false); // Réinitialisez le state reloadData à false après le rechargement des données
+      } catch (error) {
+        console.error("Error reloading group data:", error);
+      }
+    };
 
+    reloadGroupData();
+  }
   const truncateDescription = (description: string) => {
     const words = description.split(" ");
     const truncatedWords = words.slice(0, 7);
@@ -65,7 +77,11 @@ const GroupList: React.FC = () => {
   return (
     <div>
       {groupData.slice(0, showAllGroups ? groupData.length : 2).map((group) => (
-        <div key={group.id} className="group-list-card">
+        <Link
+          to={`/groupe/${group.id}`}
+          key={group.id}
+          className="group-list-card"
+        >
           <div className="group-list-img">
             <img src={group.cover} alt="" />
           </div>
@@ -84,7 +100,7 @@ const GroupList: React.FC = () => {
               Rejoindre
             </button>
           </div>
-        </div>
+        </Link>
       ))}
       {groupData.length > 2 && (
         <div className="show-all-groups">

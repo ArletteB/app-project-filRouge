@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { PostType } from "../../../../setup/types/group/group.type";
 import "./postGroupCard.scss";
 import GroupService from "../../../../setup/services/group.service";
+import CommentCard from "../../comment/card/commentCard";
+import CommentService from "../../../../setup/services/comment.service";
 
 type Props = {
   groupId: number;
@@ -9,6 +11,8 @@ type Props = {
 
 const PostGroupCard = ({ groupId }: Props) => {
   const [posts, setGroupPosts] = useState<PostType[]>([]);
+  const [groupComments, setGroupComments] = useState<any[]>([]);
+
   useEffect(() => {
     const fetchGroupPosts = async () => {
       try {
@@ -21,8 +25,18 @@ const PostGroupCard = ({ groupId }: Props) => {
     };
     if (groupId) {
       fetchGroupPosts();
+      fetchPostComments();
     }
   }, [groupId]);
+
+  const fetchPostComments = async () => {
+    try {
+      const comments = await CommentService.getAll();
+      setGroupComments(comments);
+    } catch (error) {
+      console.error("Error fetching post comments:", error);
+    }
+  };
 
   return (
     <div>
@@ -55,6 +69,9 @@ const PostGroupCard = ({ groupId }: Props) => {
               <img src={post.image} alt="bg" className="coverFull" />
             </div>
           )}
+          <div className="comment-content">
+            <CommentCard groupId={groupId} post={post} />
+          </div>
         </div>
       ))}
     </div>

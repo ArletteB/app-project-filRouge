@@ -2,12 +2,16 @@ import "./groupCard.scss";
 import axios from "axios";
 import { GroupType } from "../../../../setup/types/group/group.type";
 import { useUserContext } from "../../../../setup/contexts/UserContext";
+import { useState } from "react";
+import GroupService from "../../../../setup/services/group.service";
+import "./groupCard.scss";
 type Props = {
   groupes: GroupType;
 };
 
 const GroupCard = ({ groupes }: Props) => {
   const { user } = useUserContext();
+  const [reloadData, setReloadData] = useState(false);
 
   const joinGroup = async (groupId: number) => {
     try {
@@ -16,14 +20,25 @@ const GroupCard = ({ groupes }: Props) => {
         await axios.patch(
           `${process.env.REACT_APP_API_URL}/users/${user.id}/group/${groupId}`
         );
+        setReloadData(true);
       }
-
-      // Mise à jour des données du groupe après avoir rejoint
-      // fetchGroupData();
     } catch (error) {
       console.error("Error joining group:", error);
     }
   };
+  if (reloadData) {
+    const reloadGroupData = async () => {
+      try {
+        await GroupService.reloadData(groupes.id);
+        setReloadData(false); // Réinitialisez le state reloadData à false après le rechargement des données
+      } catch (error) {
+        console.error("Error reloading group data:", error);
+      }
+    };
+
+    reloadGroupData();
+  }
+
   return (
     <div id="group-card">
       {/* {groupData.map((group) => ( */}
