@@ -5,7 +5,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #bbbbbb33;
+  background: #caccce7d;
+}
+
+.group-card-btn {
+  width: 90%;
+  margin: 10px 0 10px 7px;
+  height: 5vh;
+  padding: 5px;
+  /* border: 1px solid #f49030; */
+  border-radius: 26px;
+  background-color: #fff;
+  /* font-size: 12px; */
+  font-weight: bold;
+  cursor: pointer;
 }
 
 code {

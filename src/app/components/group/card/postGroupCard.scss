@@ -1,33 +1,117 @@
-.card {
+.post-group-content {
   position: relative;
   width: 600px;
   min-height: 450px;
-  margin: auto;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15), -5px -5px 5px rgba(0, 0, 0, 0.15);
+  margin: 10px auto;
   padding: 20px;
-}
+  background: #ffffff;
 
-.card .top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .post-group-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-.card .top .user_details {
-  display: flex;
-  align-items: center;
-}
+    .post-group-user_details {
+      display: flex;
+      align-items: center;
 
-.card .top .user_details .profile_img {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 8px;
-}
+      .post-group-profile_img {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 8px;
+      }
 
-.cover {
+      h3 {
+        font-size: 18px;
+        color: black;
+        font-weight: 900;
+        line-height: 1em;
+        cursor: pointer;
+
+        .hour {
+          color: gray;
+          font-size: 15px;
+          font-weight: 500;
+        }
+
+        .globDot {
+          position: absolute;
+          margin-left: 5px;
+          top: -4px;
+          font-size: 20px;
+          align-items: center;
+          color: #0000004b;
+        }
+      }
+      ul {
+        position: relative;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        li {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          margin-top: 10px;
+          margin-right: 48px;
+          list-style: none;
+          text-align: center;
+          img {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            margin-top: -1.5px;
+          }
+        }
+      }
+    }
+
+    .post-group-dot {
+      transform: rotate(90deg) scale(0.6);
+      cursor: pointer;
+      margin-top: -16px;
+    }
+  }
+
+  .post-group-message {
+    font-weight: 400;
+    margin-top: 5px;
+    color: #777;
+    line-height: 1.5em;
+  }
+
+  .post-group-imgBg {
+    position: relative;
+    width: 600px;
+    height: 420px;
+    margin: 10px 0 15px;
+    overflow: hidden;
+
+    .post-group-coverFull {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      cursor: pointer;
+    }
+  }
+}
+.profile_img-cover {
   position: absolute;
   top: 0;
   right: 0;
@@ -38,91 +122,6 @@
   cursor: pointer;
 }
 
-.card .top .user_details h3 {
-  font-size: 18px;
-  color: black;
-  font-weight: 900;
-  line-height: 1em;
-  cursor: pointer;
-}
-
-.hour {
-  color: gray;
-  font-size: 15px;
-  font-weight: 500;
-}
-
-.globDot {
-  position: absolute;
-  margin-left: 5px;
-  margin-top: -4px;
-  font-size: 20px;
-  align-items: center;
-  color: #0000004b;
-}
-
-ul {
-  position: relative;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-ul li {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  margin-top: 10px;
-  margin-right: 48px;
-  list-style: none;
-  text-align: center;
-}
-
-ul li img {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  margin-top: -1.5px;
-}
-
-.dot {
-  transform: rotate(90deg) scale(0.6);
-  cursor: pointer;
-  margin-top: -16px;
-}
-
-.message {
-  font-weight: 400;
-  margin-top: 5px;
-  color: #777;
-  line-height: 1.5em;
-}
-.imgBg {
-  position: relative;
-  width: 600px;
-  height: 420px;
-  margin: 10px 0 15px;
-  overflow: hidden;
-}
-.coverFull {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  cursor: pointer;
-}
 .btns {
   display: flex;
   align-items: center;
@@ -227,10 +226,10 @@ input[type="text"] {
 }
 
 @media (max-width: 640px) {
-  .card {
+  .post-group-content {
     width: 350px;
-  }
-  .imgBg {
-    width: 350px;
+    .post-group-imgBg {
+      width: 350px;
+    }
   }
 }

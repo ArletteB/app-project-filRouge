@@ -27,12 +27,18 @@ const remove = async (id: any) => {
   return response.data;
 };
 
+const isUserInGroup = async (id: any, groupId: any) => {
+  const response = await api.get(`${COMMENT_ENDPOINT}/${id}/groups/${groupId}`);
+  return response.data;
+};
+
 const CommentService = {
   create,
   getOne,
   getAll,
   update,
   remove,
+  isUserInGroup,
 };
 
 export default CommentService;

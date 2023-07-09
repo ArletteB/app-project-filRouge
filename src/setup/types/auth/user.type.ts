@@ -1,3 +1,5 @@
+import { GroupType } from "../group/group.type";
+
 export interface UserType {
   id: string;
   email: string;
@@ -7,6 +9,7 @@ export interface UserType {
   bio: string;
   imgProfile: string;
   gender: string;
+  groupes: GroupType[];
 }
 
 export type ResetPassword = {

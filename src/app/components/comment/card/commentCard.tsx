@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CommentService from "../../../../setup/services/comment.service";
 import { useUserContext } from "../../../../setup/contexts/UserContext";
-import { PostType } from "../../../../setup/types/group/group.type";
+import { GroupType, PostType } from "../../../../setup/types/group/group.type";
 import AddComment from "./addComment";
 
 interface Props {
@@ -37,22 +37,28 @@ const CommentCard = ({ groupId, post }: Props) => {
     }
   }, [groupId]);
 
+  const isUserInGroup = user?.groupes?.some(
+    (group: GroupType) => group.id === groupId
+  );
+
   return (
     <div className="comment">
-      <AddComment postId={post.id} onCommentAdded={handleCommentAdded} />
+      {isUserInGroup && (
+        <AddComment postId={post.id} onCommentAdded={handleCommentAdded} />
+      )}
       {groupComments.map((comment) => (
         <div key={comment.id} className="comment-card">
           <div className="comment-user-banner">
             <div className="comment-user">
-              {/* <div className="avatar">
-                AF
-                <span className="stat green"></span>
-              </div> */}
+              <div className="avatar">
+                <img src={user?.imgProfile} alt="" />
+                <span className="stat grey"></span>
+              </div>
               <h5>{user?.firstName}</h5>
             </div>
-            {/* <button className="btn dropdown">
+            <button className="comment-btn dropdown">
               <i className="ri-more-line"></i>
-            </button> */}
+            </button>
           </div>
           <div className="content-comment">
             <p>{comment.content}</p>

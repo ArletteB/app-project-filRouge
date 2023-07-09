@@ -29,7 +29,7 @@ const SingleGroup: React.FC<{}> = () => {
     <div className="single-group ">
       <GroupCard groupes={oneGroup} />
       <Link to={`/groupes/${id}/posts/create`}>
-        <button>Ajouter un post</button>
+        <button className="group-card-btn">Ajouter un post</button>
       </Link>
 
       <PostGroupCard groupId={oneGroup?.id} />

@@ -49,7 +49,12 @@ const GroupCard = ({ groupes }: Props) => {
         <div className="group-card-name">
           <h2 className="group-card-name-title ">{groupes.name}</h2>
           {/* <h4 className="group-card-members">Members: {group.users.length}</h4> */}
-          <button onClick={() => joinGroup(groupes.id)}>Join Group</button>
+          <button
+            className="group-card-btn"
+            onClick={() => joinGroup(groupes.id)}
+          >
+            Join Group
+          </button>
         </div>
       </div>
       <div className="group-card-description-infos">

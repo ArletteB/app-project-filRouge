@@ -1,10 +1,12 @@
+import { UserType } from "../auth/user.type";
+
 export interface GroupType {
   id: number;
   name: string;
   description: string;
   cover: string;
   postalCode: string;
-  users: User[];
+  users: UserType[];
 }
 
 export interface User {

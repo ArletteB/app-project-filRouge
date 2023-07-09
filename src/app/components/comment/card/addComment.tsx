@@ -4,6 +4,7 @@ import { useUserContext } from "../../../../setup/contexts/UserContext";
 
 interface Props {
   postId: number;
+
   onCommentAdded: () => void;
 }
 
