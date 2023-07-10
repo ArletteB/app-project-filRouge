@@ -91,6 +91,9 @@
     color: #777;
     line-height: 1.5em;
   }
+  .post-group-image {
+    width: 100%;
+  }
 
   .post-group-imgBg {
     position: relative;
@@ -227,9 +230,9 @@ input[type="text"] {
 
 @media (max-width: 640px) {
   .post-group-content {
-    width: 350px;
+    width: auto;
     .post-group-imgBg {
-      width: 350px;
+      width: auto;
     }
   }
 }

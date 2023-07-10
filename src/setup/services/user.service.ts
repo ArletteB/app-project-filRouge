@@ -44,12 +44,20 @@ const remove = async (id: any) => {
 //   }
 // };
 
+const isUserInGroup = async (userId: any, groupId: any) => {
+  const response = await api.get(
+    `${Users_ENDPOINT}/${userId}/groups/${groupId}`
+  );
+  return response.data;
+};
+
 const UserService = {
   create,
   getOne,
   getAll,
   update,
   remove,
+  isUserInGroup,
 };
 
 export default UserService;

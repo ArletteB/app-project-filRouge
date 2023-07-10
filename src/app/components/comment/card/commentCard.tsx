@@ -2,20 +2,23 @@ import { useEffect, useState } from "react";
 import CommentService from "../../../../setup/services/comment.service";
 import { useUserContext } from "../../../../setup/contexts/UserContext";
 import { GroupType, PostType } from "../../../../setup/types/group/group.type";
+import "./comment.scss";
 import AddComment from "./addComment";
+import { BsThreeDots } from "react-icons/bs";
 
 interface Props {
   groupId: number;
   post: PostType;
+  userInGroup: boolean;
 }
 
-const CommentCard = ({ groupId, post }: Props) => {
+const CommentCard = ({ groupId, post, userInGroup }: Props) => {
   const [groupComments, setGroupComments] = useState<any[]>([]);
   const { user } = useUserContext();
 
   const fetchPostComments = async () => {
     try {
-      const comments = await CommentService.getAll();
+      const comments = await CommentService.getAllByPostId(post.id);
       setGroupComments(comments);
     } catch (error) {
       console.error("Error fetching post comments:", error);
@@ -37,13 +40,9 @@ const CommentCard = ({ groupId, post }: Props) => {
     }
   }, [groupId]);
 
-  const isUserInGroup = user?.groupes?.some(
-    (group: GroupType) => group.id === groupId
-  );
-
   return (
     <div className="comment">
-      {isUserInGroup && (
+      {userInGroup && (
         <AddComment postId={post.id} onCommentAdded={handleCommentAdded} />
       )}
       {groupComments.map((comment) => (
@@ -57,7 +56,8 @@ const CommentCard = ({ groupId, post }: Props) => {
               <h5>{user?.firstName}</h5>
             </div>
             <button className="comment-btn dropdown">
-              <i className="ri-more-line"></i>
+              <BsThreeDots />
+              {/* <i className="ri-more-line"></i> */}
             </button>
           </div>
           <div className="content-comment">

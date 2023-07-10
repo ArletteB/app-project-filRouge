@@ -7,6 +7,7 @@ import CommentService from "../../../../setup/services/comment.service";
 import { useUserContext } from "../../../../setup/contexts/UserContext";
 import globe from "../../../assets/img/globe.png";
 import dot from "../../../assets/img/dot.png";
+import UserService from "../../../../setup/services/user.service";
 
 type Props = {
   groupId: number;
@@ -15,6 +16,7 @@ type Props = {
 const PostGroupCard = ({ groupId }: Props) => {
   const [posts, setGroupPosts] = useState<PostType[]>([]);
   const [groupComments, setGroupComments] = useState<any[]>([]);
+  const [userInGroup, setUserInGroup] = useState<boolean>(false);
   const { user } = useUserContext();
 
   useEffect(() => {
@@ -29,16 +31,16 @@ const PostGroupCard = ({ groupId }: Props) => {
     };
     if (groupId) {
       fetchGroupPosts();
-      fetchPostComments();
+      fetchUserInGroup();
     }
   }, [groupId]);
 
-  const fetchPostComments = async () => {
+  const fetchUserInGroup = async () => {
     try {
-      const comments = await CommentService.getAll();
-      setGroupComments(comments);
+      const { isInGroup } = await UserService.isUserInGroup(user?.id, groupId);
+      setUserInGroup(isInGroup);
     } catch (error) {
-      console.error("Error fetching post comments:", error);
+      console.error("Error fetching user in group:", error);
     }
   };
 
@@ -72,13 +74,29 @@ const PostGroupCard = ({ groupId }: Props) => {
             </div>
           </div>
           <h4 className="post-group-message">{post.description}</h4>
-          {post.image && (
+          <img
+            className="post-group-image"
+            src="https://source.unsplash.com/random/100×100"
+            alt=""
+          />
+          {/* {post.image && post.image.length > 0 && (
             <div className="post-group-imgBg">
-              <img src={post.image} alt="bg" className="post-group-coverFull" />
+              {post.image.map((image: any) => (
+                <img
+                  src={image.urls.small}
+                  alt="bg"
+                  className="post-group-coverFull"
+                  key={image.id}
+                />
+              ))}
             </div>
-          )}
+          )} */}
           <div className="comment-content">
-            <CommentCard groupId={groupId} post={post} />
+            <CommentCard
+              groupId={groupId}
+              post={post}
+              userInGroup={userInGroup}
+            />
           </div>
         </div>
       ))}

@@ -26,7 +26,7 @@ const removeTokenFromLocalStorage = () => {
 
 const isValidToken = (access_token: string) => {
   const tokendecode = jwtDecode(access_token) as any;
-  const currentTime = Date.now() / 1000;
+  const currentTime = Date.now() / 5000;
   if (tokendecode.exp < currentTime) {
     return false;
   }

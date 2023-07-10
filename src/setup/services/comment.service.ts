@@ -16,6 +16,10 @@ const getAll = async () => {
   const response = await api.get(COMMENT_ENDPOINT);
   return response.data;
 };
+const getAllByPostId = async (post_id: number) => {
+  const response = await api.get(`${COMMENT_ENDPOINT}/posts/${post_id}`);
+  return response.data;
+};
 
 const update = async (id: any, comment: any) => {
   const response = await api.put(`${COMMENT_ENDPOINT}/${id}`, comment);
@@ -27,18 +31,13 @@ const remove = async (id: any) => {
   return response.data;
 };
 
-const isUserInGroup = async (id: any, groupId: any) => {
-  const response = await api.get(`${COMMENT_ENDPOINT}/${id}/groups/${groupId}`);
-  return response.data;
-};
-
 const CommentService = {
   create,
   getOne,
   getAll,
   update,
   remove,
-  isUserInGroup,
+  getAllByPostId,
 };
 
 export default CommentService;

@@ -15,7 +15,7 @@ const create = async (posts: any) => {
 
 const getAll = async () => {
   try {
-    const response = await api.get(POST_ENDPOINT);
+    const response = await api.get(`${POST_ENDPOINT}`);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la récupération de tous les posts :", error);
