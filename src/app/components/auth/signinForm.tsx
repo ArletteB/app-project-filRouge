@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
-import "../../styles/auth.scss";
+// import "../../styles/auth.scss";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../setup/contexts/UserContext";
 import { setAuthorizationHeader } from "../../../setup/services/api.service";

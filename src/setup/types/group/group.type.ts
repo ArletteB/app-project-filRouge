@@ -5,6 +5,7 @@ export interface GroupType {
   name: string;
   description: string;
   cover: string;
+  city: string;
   postalCode: string;
   users: UserType[];
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../../setup/contexts/UserContext";
-import "../../styles/navbar.scss";
+// import "../../styles/navbar.scss";
 import socialLink from "../../assets/img/socialLink.png";
 
 const Navbar: React.FC = () => {
@@ -31,6 +31,13 @@ const Navbar: React.FC = () => {
       </button>
 
       <ul className={`list ${menuburger ? "active" : ""}`}>
+        {/* {user?.email && (
+          <li>
+            <Link to="/account" onClick={() => setMenuBurger(false)}>
+              Account
+            </Link>
+          </li>
+        )} */}
         {!user?.email && (
           <>
             <li>

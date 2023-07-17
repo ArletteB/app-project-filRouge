@@ -1,9 +1,3 @@
-/* Start Misen en Page */
-* {
-  font-family: "Poppins", sans-serif;
-  list-style: none;
-  outline: none;
-}
 .a-auth-content {
   /* background: #ececec; */
   padding: 0 20px 0 20px;
@@ -20,7 +14,7 @@
       background: #fff;
       box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
       .a-side-image {
-        background-image: url("../assets/img/authImg.jpg");
+        background-image: url("../../assets/img/authImg.jpg");
         height: 35%;
         text-align: center;
         background-position: center;

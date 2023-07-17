@@ -6,13 +6,24 @@ import { useUserContext } from "../../../setup/contexts/UserContext";
 import GroupService from "../../../setup/services/group.service";
 import { Link } from "react-router-dom";
 
-const GroupList: React.FC = () => {
-  const [groupData, setGroupData] = useState<GroupType[]>([]);
+interface GroupListProps {
+  groupData: GroupType[];
+  setGroupData: React.Dispatch<React.SetStateAction<GroupType[]>>;
+  isSearching: boolean;
+}
+
+const GroupList: React.FC<GroupListProps> = ({
+  groupData,
+  setGroupData,
+  isSearching,
+}) => {
   const { user } = useUserContext();
   const [reloadData, setReloadData] = useState(false);
 
   const [userId, setUserId] = useState<string>("");
-  const [showAllGroups, setShowAllGroups] = useState<boolean>(false);
+
+  const [searchPostalCode, setSearchPostalCode] = useState("");
+  const [visibleGroupCount, setVisibleGroupCount] = useState(1);
 
   useEffect(() => {
     fetchGroupData();
@@ -26,7 +37,10 @@ const GroupList: React.FC = () => {
   const fetchGroupData = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/groupes`
+        `${process.env.REACT_APP_API_URL}/groupes`,
+        {
+          params: { postalCode: searchPostalCode }, // Ajoutez le code postal en tant que paramètre de requête
+        }
       );
       const groups = response.data;
       setGroupData(groups);
@@ -48,6 +62,7 @@ const GroupList: React.FC = () => {
       console.error("Error joining group:", error);
     }
   };
+
   if (reloadData) {
     const reloadGroupData = async () => {
       try {
@@ -70,43 +85,51 @@ const GroupList: React.FC = () => {
     return truncatedDescription;
   };
 
-  const toggleShowAllGroups = () => {
-    setShowAllGroups(!showAllGroups);
+  const handleShowMoreGroups = () => {
+    setVisibleGroupCount((prevCount) => prevCount + 1);
   };
 
+  const handleHideGroups = () => {
+    setVisibleGroupCount(1);
+  };
+
+  const visibleGroupData = groupData.slice(0, visibleGroupCount);
   return (
     <div>
-      {groupData.slice(0, showAllGroups ? groupData.length : 2).map((group) => (
-        <Link
-          to={`/groupe/${group.id}`}
-          key={group.id}
-          className="group-list-card"
-        >
-          <div className="group-list-img">
-            <img src={group.cover} alt="" />
-          </div>
-          <div className="group-infos-content">
-            <div className="group-infos-name">{group.name}</div>
-            {/* <div className="group-members">Members: {group.users.length}</div> */}
-            <div className="group-infos-description">
-              {truncateDescription(group.description)}
+      {isSearching &&
+        visibleGroupData.map((group) => (
+          <Link
+            to={`/groupe/${group.id}`}
+            key={group.id}
+            className="group-list-card"
+          >
+            <div className="group-list-img">
+              <img src={group.cover} alt="" />
             </div>
-          </div>
-          <div className="group-infos-bouton">
-            <button
-              className="group-btn-joingroup"
-              onClick={() => joinGroup(group.id)}
-            >
-              Rejoindre
-            </button>
-          </div>
-        </Link>
-      ))}
-      {groupData.length > 2 && (
-        <div className="show-all-groups">
-          <button onClick={toggleShowAllGroups}>
-            {showAllGroups ? "Cacher les groupes" : "Voir tous"}
-          </button>
+            <div className="group-infos-content">
+              <div className="group-infos-name">{group.name}</div>
+              <div className="group-infos-description">
+                {truncateDescription(group.description)}
+              </div>
+            </div>
+            <div className="group-infos-bouton">
+              <button
+                className="group-btn-joingroup"
+                onClick={() => joinGroup(group.id)}
+              >
+                Rejoindre
+              </button>
+            </div>
+          </Link>
+        ))}
+      {isSearching && visibleGroupCount < groupData.length && (
+        <div className="show-more-groups">
+          <button onClick={handleShowMoreGroups}>Voir plus de groupes</button>
+        </div>
+      )}
+      {isSearching && visibleGroupCount > 1 && (
+        <div className="hide-groups">
+          <button onClick={handleHideGroups}>Cacher les groupes</button>
         </div>
       )}
     </div>

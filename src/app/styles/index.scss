@@ -5,7 +5,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #caccce7d;
 }
 
 .group-card-btn {
@@ -25,3 +24,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@import "components/components";
+@import "abstracts/abstracts";
+@import "pages/pages";
+@import "./style";

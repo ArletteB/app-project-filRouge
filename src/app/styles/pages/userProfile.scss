@@ -1,0 +1,238 @@
+.profile-wrapper {
+  width: 375px;
+  height: fit-content;
+  /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); */
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid gainsboro;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.profile-info {
+  margin-top: 0.5rem;
+}
+
+.display-name {
+  font-size: 1.5rem;
+}
+
+.profile-stats {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.profile-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+  cursor: pointer;
+}
+
+.profile-stat:hover strong {
+  color: royalblue;
+}
+
+.profile-controls {
+  margin-top: 1rem;
+}
+
+.stacked-button {
+  display: flex;
+  gap: 0.25rem;
+}
+
+button.follow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  height: 42px;
+  width: 164px;
+  transition: color 0.3s, border 0.3s, background-color 0.3s;
+  background-color: #1976d2;
+  color: white;
+  font-size: 0.95rem;
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.2);
+}
+
+button.follow:not(.following):hover {
+  background-color: #1e88e5;
+  box-shadow: 0px 2px 8px 2px rgba(0, 0, 0, 0.2);
+}
+
+button.follow:not(.following) .follow-text {
+  display: block;
+}
+
+button.follow:not(.following) .following-text {
+  display: none;
+}
+
+button.follow:not(.following) .unfollow-text {
+  display: none;
+}
+
+button.follow.following .follow-text {
+  display: none;
+}
+
+button.follow.following .following-text {
+  display: block;
+}
+
+button.follow.following .unfollow-text {
+  display: none;
+}
+
+button.follow.following {
+  transition: color 0.3s, border 0.3s, background-color 0.3s;
+  background-color: white;
+  border: 1px solid gainsboro;
+  color: #424242;
+  box-shadow: 0px 0.5px 4px 0.25px rgba(0, 0, 0, 0.2);
+}
+
+button.follow.following:hover {
+  background-color: #d32f2f;
+  border: 0;
+  box-shadow: 0px 2px 8px 2px rgba(0, 0, 0, 0.2);
+}
+
+button.follow.following:hover .following-text {
+  display: none;
+}
+
+button.follow.following:hover .unfollow-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  color: white;
+}
+
+button.follow-ext {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  appearance: none;
+  border: 1px solid gainsboro;
+  cursor: pointer;
+  height: 42px;
+  width: 42px;
+  background-color: white;
+  box-shadow: 0px 0.5px 4px 0.25px rgba(0, 0, 0, 0.2);
+}
+
+button.follow-ext:hover {
+  box-shadow: 0px 0.5px 4px 0.5px rgba(0, 0, 0, 0.2);
+}
+
+button.follow-ext:hover svg {
+  fill: royalblue;
+}
+
+.follow-ext-menu-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+}
+
+.follow-ext-menu {
+  position: absolute;
+  right: 0px;
+  width: 120px;
+  height: fit-content;
+  display: none;
+}
+
+.follow-ext-menu-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.follow-ext-menu-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  appearance: none;
+  color: #424242;
+  border-left: 1px solid gainsboro;
+  border-right: 1px solid gainsboro;
+  border-top: 1px solid gainsboro;
+  border-bottom: 1px solid gainsboro;
+  background-color: white;
+  height: 38px;
+}
+
+.follow-ext-menu-item:hover {
+  color: royalblue;
+}
+
+.follow-ext-menu-item:hover svg {
+  fill: royalblue;
+}
+
+.follow-ext-menu-item:not(:last-child) {
+  border-top: 1px solid gainsboro;
+}
+
+.profile-body {
+  padding: 1rem;
+}
+
+.profile-body-section {
+  display: grid;
+  grid-template-columns: 110px 110px 110px;
+  grid-column-gap: 6.5px;
+  grid-row-gap: 6.5px;
+}
+
+.profile-tabs {
+  display: flex;
+  margin-bottom: 0.25rem;
+}
+
+.profile-tab {
+  width: 50%;
+  appearance: none;
+  border: 0;
+  background-color: white;
+  cursor: pointer;
+}
+
+.profile-tab.selected {
+  transition: border-bottom 0.3s;
+  border-bottom: 2px solid royalblue;
+}
+
+.profile-tab.selected svg {
+  transition: fill 0.3s;
+  fill: royalblue;
+}
+
+.profile-tab:not(.selected) {
+  transition: border-bottom 0.3s;
+  border-bottom: 2px solid transparent;
+}
+
+.profile-tab:not(.selected) svg {
+  transition: fill 0.3s;
+  fill: grey;
+}
