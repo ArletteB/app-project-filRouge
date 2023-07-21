@@ -26,8 +26,8 @@ const update = async (id: any, comment: any) => {
   return response.data;
 };
 
-const remove = async (id: any) => {
-  const response = await api.delete(`${COMMENT_ENDPOINT}/${id}`);
+const remove = async (commentId: number) => {
+  const response = await api.delete(`${COMMENT_ENDPOINT}/${commentId}`);
   return response.data;
 };
 

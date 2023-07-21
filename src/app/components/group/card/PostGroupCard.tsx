@@ -8,6 +8,8 @@ import { useUserContext } from "../../../../setup/contexts/UserContext";
 import globe from "../../../assets/img/globe.png";
 import dot from "../../../assets/img/dot.png";
 import UserService from "../../../../setup/services/user.service";
+import { FcLike } from "react-icons/fc";
+import LikeService from "../../../../setup/services/like.service";
 
 type Props = {
   groupId: number;
@@ -41,6 +43,19 @@ const PostGroupCard = ({ groupId }: Props) => {
       setUserInGroup(isInGroup);
     } catch (error) {
       console.error("Error fetching user in group:", error);
+    }
+  };
+
+  const handleAddLike = async (postId: number) => {
+    try {
+      if (!user) {
+        return;
+      }
+      await LikeService.create(postId, user?.id);
+      const posts = await GroupService.getPostsByGroupId(groupId);
+      setGroupPosts(posts);
+    } catch (error) {
+      console.error("Error adding like:", error);
     }
   };
 
@@ -79,6 +94,18 @@ const PostGroupCard = ({ groupId }: Props) => {
             src="https://source.unsplash.com/random/100×100"
             alt=""
           />
+          <div className="post-group-likes">
+            <div onClick={() => handleAddLike(post.id)}>
+              <FcLike />
+            </div>
+            {post?.likes?.length > 0 ? (
+              <div className="post-group-likes-content">
+                {post?.likes?.length}
+              </div>
+            ) : (
+              "0"
+            )}
+          </div>
           {/* {post.image && post.image.length > 0 && (
             <div className="post-group-imgBg">
               {post.image.map((image: any) => (

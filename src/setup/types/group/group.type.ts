@@ -10,11 +10,6 @@ export interface GroupType {
   users: UserType[];
 }
 
-export interface User {
-  id: number;
-  name: string;
-}
-
 export interface PostType {
   timestamp: string;
   author: string;
@@ -22,6 +17,7 @@ export interface PostType {
   legend: string;
   description: string;
   image: string;
+  likes: [];
 }
 
 export interface PostCreateDto {

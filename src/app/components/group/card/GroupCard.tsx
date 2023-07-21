@@ -2,9 +2,9 @@ import "./groupCard.scss";
 import axios from "axios";
 import { GroupType } from "../../../../setup/types/group/group.type";
 import { useUserContext } from "../../../../setup/contexts/UserContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GroupService from "../../../../setup/services/group.service";
-import "./groupCard.scss";
+import UserService from "../../../../setup/services/user.service";
 type Props = {
   groupes: GroupType;
 };
@@ -12,6 +12,7 @@ type Props = {
 const GroupCard = ({ groupes }: Props) => {
   const { user } = useUserContext();
   const [reloadData, setReloadData] = useState(false);
+  const [isUserMember, setIsUserMember] = useState(false);
 
   const joinGroup = async (groupId: number) => {
     try {
@@ -38,6 +39,21 @@ const GroupCard = ({ groupes }: Props) => {
 
     reloadGroupData();
   }
+  useEffect(() => {
+    // Vérifier si l'utilisateur est déjà membre du groupe lors du chargement initial
+    if (user) {
+      checkIsUserMember();
+    }
+  }, [user, groupes.id]);
+
+  const checkIsUserMember = async () => {
+    try {
+      const response = await UserService.isUserInGroup(user?.id, groupes.id);
+      setIsUserMember(response.isUserInGroup);
+    } catch (error) {
+      console.error("Error checking user membership:", error);
+    }
+  };
 
   return (
     <div id="group-card">
@@ -49,12 +65,16 @@ const GroupCard = ({ groupes }: Props) => {
         <div className="group-card-name">
           <h2 className="group-card-name-title ">{groupes.name}</h2>
           {/* <h4 className="group-card-members">Members: {group.users.length}</h4> */}
-          <button
-            className="group-card-btn"
-            onClick={() => joinGroup(groupes.id)}
-          >
-            Join Group
-          </button>
+          <div>
+            {!isUserMember && (
+              <button
+                className="group-card-btn"
+                onClick={() => joinGroup(groupes.id)}
+              >
+                Join Group
+              </button>
+            )}
+          </div>
         </div>
       </div>
       <div className="group-card-description-infos">

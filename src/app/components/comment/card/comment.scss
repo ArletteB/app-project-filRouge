@@ -157,6 +157,26 @@
         }
       }
     }
+    .comment-options {
+      position: absolute;
+      // top: 20%;
+      // right: 0;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 8px;
+      z-index: 999;
+    }
+
+    .comment-options p {
+      margin: 0;
+      padding: 6px;
+      cursor: pointer;
+    }
+
+    .comment-options p:hover {
+      background-color: #f0f0f0;
+    }
   }
 
   &:not(.comment:first-child) {

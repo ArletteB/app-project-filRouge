@@ -10,11 +10,13 @@ import SingleGroup from "../../../app/components/group/SingleGroup";
 import CreatePost from "../../../app/components/post/CreatePost";
 import { UserProfilPage } from "../../../app/pages/user/userProfil";
 import EditProfil from "../../../app/components/userProfil/editProfil";
+import { AccueilPage } from "../../../app/pages/home/accueilPage";
 
 export const PublicRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/accueil" element={<AccueilPage />} />
       <Route path="/auth/signin" element={<SigninPage />} />
       <Route path="/auth/signup" element={<SignupPage />} />
       <Route path="/test" element={<Test />} />

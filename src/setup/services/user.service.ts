@@ -44,7 +44,7 @@ const remove = async (id: any) => {
 //   }
 // };
 
-const isUserInGroup = async (userId: any, groupId: any) => {
+const isUserInGroup = async (userId: any, groupId: number) => {
   const response = await api.get(
     `${Users_ENDPOINT}/${userId}/groups/${groupId}`
   );

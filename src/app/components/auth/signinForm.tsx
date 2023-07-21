@@ -33,7 +33,7 @@ const SigninForm: React.FC = () => {
       setRedirectTo(!redirectTo);
 
       if (redirectTo) {
-        navigate("/");
+        navigate("/accueil");
       }
 
       // Appel de la fonction setAuthorizationHeader avec le jeton d'authentification en paramètre

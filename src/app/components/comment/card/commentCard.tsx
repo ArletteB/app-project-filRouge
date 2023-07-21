@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import CommentService from "../../../../setup/services/comment.service";
 import { useUserContext } from "../../../../setup/contexts/UserContext";
 import { GroupType, PostType } from "../../../../setup/types/group/group.type";
@@ -15,6 +15,10 @@ interface Props {
 const CommentCard = ({ groupId, post, userInGroup }: Props) => {
   const [groupComments, setGroupComments] = useState<any[]>([]);
   const { user } = useUserContext();
+  const [activeCommentIndex, setActiveCommentIndex] = useState<number | null>(
+    null
+  );
+  const dropdownRef = useRef<HTMLButtonElement | null>(null);
 
   const fetchPostComments = async () => {
     try {
@@ -40,12 +44,38 @@ const CommentCard = ({ groupId, post, userInGroup }: Props) => {
     }
   }, [groupId]);
 
+  useEffect(() => {
+    const handleClickOutsideOptions = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setActiveCommentIndex(null);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutsideOptions);
+    return () => {
+      document.removeEventListener("click", handleClickOutsideOptions);
+    };
+  }, []);
+
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      await CommentService.remove(commentId);
+      // Mettez à jour la liste des commentaires après la suppression réussie
+      fetchPostComments();
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
+
   return (
     <div className="comment">
       {userInGroup && (
         <AddComment postId={post.id} onCommentAdded={handleCommentAdded} />
       )}
-      {groupComments.map((comment) => (
+      {groupComments.map((comment, index) => (
         <div key={comment.id} className="comment-card">
           <div className="comment-user-banner">
             <div className="comment-user">
@@ -55,11 +85,30 @@ const CommentCard = ({ groupId, post, userInGroup }: Props) => {
               </div>
               <h5>{user?.firstName}</h5>
             </div>
-            <button className="comment-btn dropdown">
+            <button
+              className="comment-btn dropdown"
+              onClick={() => {
+                // Si l'index du commentaire actuel est déjà actif, le désactiver
+                if (activeCommentIndex === index) {
+                  setActiveCommentIndex(null);
+                } else {
+                  // Sinon, activer l'index du commentaire actuel
+                  setActiveCommentIndex(index);
+                }
+              }}
+            >
               <BsThreeDots />
-              {/* <i className="ri-more-line"></i> */}
             </button>
+            {activeCommentIndex === index && (
+              <div className="comment-options">
+                <p>Modifier le commentaire</p>
+                <p onClick={() => handleDeleteComment(comment.id)}>
+                  Supprimer le commentaire
+                </p>
+              </div>
+            )}
           </div>
+
           <div className="content-comment">
             <p>{comment.content}</p>
           </div>
