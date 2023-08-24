@@ -1,0 +1,39 @@
+.content-homePage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url("../../assets/img/home.jpg");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  .overlay {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+    @media (min-width: 769px) {
+      flex-direction: row;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      margin: 5px 10px;
+      font-size: 18px;
+    }
+    a:first-child {
+      margin-right: 100px;
+    }
+  }
+
+  .welcome-text {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+}
