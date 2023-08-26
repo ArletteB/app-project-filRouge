@@ -3,30 +3,19 @@ import { useParams } from "react-router-dom";
 import GroupService from "../../../setup/services/group.service";
 import { useNavigate } from "react-router-dom";
 import { PostCreateDto, PostType } from "../../../setup/types/group/group.type";
-import axios from "axios";
 import "./createPost.scss";
 import { useUserContext } from "../../../setup/contexts/UserContext";
-// import Images from "./card/Images";
-import IndividualImage from "./card/IndividualImage";
-
-interface ImageData {
-  id: string;
-  urls: {
-    small: string;
-  };
-}
+import UploadForm from "./card/UploadForm";
 
 const CreatePost: React.FC = () => {
   const { user } = useUserContext();
   const [groupPosts, setGroupPosts] = useState<PostType[]>([]);
-  const [images, setImages] = useState(""); // Ajouter un state pour stocker les images téléchargées
-
   const { groupId } = useParams();
   const navigate = useNavigate();
 
   const [legend, setLegend] = useState("");
   const [description, setDescription] = useState("");
-  // const [image, setImage] = useState("");
+  const [uploadedFile, setUploadedFile] = useState<string>("");
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -41,27 +30,14 @@ const CreatePost: React.FC = () => {
     fetchPosts();
   }, [groupId]);
 
-  const fetchAPI = async () => {
-    try {
-      const response = await axios.get(
-        "https://api.unsplash.com/photos/random/?client_id=9zPm1oWOZ703A1ft3AT6FLl40_QSO_MfcvqguZKeF34"
-      );
-      const data = await response.data;
-      setImages(data);
-    } catch (error) {
-      console.error("Error fetching group posts:", error);
-    }
-  };
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
-      // const imageUrls = images.map((image) => image.urls.small);
       const newPost: PostCreateDto = {
         legend,
         description,
-        image: images,
+        image: uploadedFile,
         groupe: {
           id: Number(groupId),
         },
@@ -71,13 +47,22 @@ const CreatePost: React.FC = () => {
         Number(groupId),
         newPost
       );
+      createdPost.uploadedFile = uploadedFile;
       setGroupPosts((prevPosts) => [...prevPosts, createdPost]);
+      // Réinitialisation des états après la création du post
+      setLegend("");
+      setDescription("");
+      setUploadedFile("");
 
       // Rediriger vers la page du groupe une fois le post créé
-      // navigate(`/groupe/${groupId}`);
+      navigate(`/groupe/${groupId}`);
     } catch (error) {
       console.error("Error creating post:", error);
     }
+  };
+
+  const handleUploadComplete = (fileUrl: string) => {
+    setUploadedFile(fileUrl);
   };
 
   return (
@@ -105,13 +90,8 @@ const CreatePost: React.FC = () => {
                 value={description}
                 onChange={(event) => setDescription(event.target.value)}
               />
+              <UploadForm setUploadedFile={handleUploadComplete} />
 
-              {/* <button onClick={fetchAPI}> Ajouter une image</button> */}
-              <div>
-                {/* {images.map((image: { id: any }) => (
-                  <IndividualImage key={image.id} image={image} />
-                ))} */}
-              </div>
               <button type="submit">Créer le post</button>
             </form>
           </section>

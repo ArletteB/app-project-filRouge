@@ -89,11 +89,9 @@ const PostGroupCard = ({ groupId }: Props) => {
             </div>
           </div>
           <h4 className="post-group-message">{post.description}</h4>
-          <img
-            className="post-group-image"
-            src="https://source.unsplash.com/random/100×100"
-            alt=""
-          />
+          {post.uploadedFile && (
+            <img className="post-group-image" src={post.uploadedFile} alt="" />
+          )}
           <div className="post-group-likes">
             <div onClick={() => handleAddLike(post.id)}>
               <FcLike />
@@ -106,18 +104,7 @@ const PostGroupCard = ({ groupId }: Props) => {
               "0"
             )}
           </div>
-          {/* {post.image && post.image.length > 0 && (
-            <div className="post-group-imgBg">
-              {post.image.map((image: any) => (
-                <img
-                  src={image.urls.small}
-                  alt="bg"
-                  className="post-group-coverFull"
-                  key={image.id}
-                />
-              ))}
-            </div>
-          )} */}
+
           <div className="comment-content">
             <CommentCard
               groupId={groupId}
