@@ -66,15 +66,15 @@ const CreatePost: React.FC = () => {
   };
 
   return (
-    <div className="body">
-      <div className="container">
-        <div className="wrapper">
-          <section className="post">
+    <div className="create-post-content">
+      <div className="create-post-container">
+        <div className="create-post-wrapper">
+          <section className="create-post">
             <header>Créer un post</header>
-            <form onSubmit={handleSubmit}>
-              <div className="content">
-                <img src="icons/logo.png" alt="img" />
-                <div className="details">
+            <form className="create-post-form" onSubmit={handleSubmit}>
+              <div className="create-post-form-content">
+                <img src={user?.imgProfile} alt="img" />
+                <div className="create-post-form-details">
                   <p>{user?.firstName}</p>
                 </div>
               </div>
@@ -85,6 +85,7 @@ const CreatePost: React.FC = () => {
                 onChange={(event) => setLegend(event.target.value)}
               />
               <textarea
+                className="create-post-textarea"
                 placeholder="De quoi voulez-vous parler ?"
                 required
                 value={description}

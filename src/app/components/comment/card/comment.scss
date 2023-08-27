@@ -74,6 +74,14 @@
         img {
           max-width: 100%;
           border-radius: 50%;
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          cursor: pointer;
         }
         .stat {
           display: flex;
@@ -301,4 +309,46 @@ h2 {
 .group-button {
   display: flex;
   gap: 16px;
+}
+
+.add-comment-form {
+  margin: 20px 10px;
+  :where(textarea, button) {
+    width: 100%;
+    outline: none;
+    border: none;
+  }
+
+  .add-comment-textarea {
+    background-color: lightgrey;
+    resize: none;
+    font-size: 18px;
+    margin-top: 30px;
+    min-height: 30px;
+    border-radius: 7px;
+    padding: 5px;
+  }
+
+  button {
+    height: 53px;
+    margin-top: 4vh;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #bcc0c4;
+    cursor: no-drop;
+    border-radius: 7px;
+    background: #e2e5e9;
+    transition: all 0.3s ease;
+  }
+
+  .add-comment-textarea:valid ~ button {
+    color: #fff;
+    cursor: pointer;
+    background: #4599ff;
+  }
+  .add-comment-textarea:valid ~ button:hover {
+    background: #1a81ff;
+  }
 }

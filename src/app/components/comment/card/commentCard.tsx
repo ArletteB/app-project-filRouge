@@ -72,9 +72,6 @@ const CommentCard = ({ groupId, post, userInGroup }: Props) => {
 
   return (
     <div className="comment">
-      {userInGroup && (
-        <AddComment postId={post.id} onCommentAdded={handleCommentAdded} />
-      )}
       {groupComments.map((comment, index) => (
         <div key={comment.id} className="comment-card">
           <div className="comment-user-banner">
@@ -115,6 +112,9 @@ const CommentCard = ({ groupId, post, userInGroup }: Props) => {
           {/* ... */}
         </div>
       ))}
+      {userInGroup && (
+        <AddComment postId={post.id} onCommentAdded={handleCommentAdded} />
+      )}
     </div>
   );
 };
