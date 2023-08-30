@@ -47,7 +47,7 @@ const CreatePost: React.FC = () => {
         Number(groupId),
         newPost
       );
-      createdPost.uploadedFile = uploadedFile;
+      createdPost.image = uploadedFile;
       setGroupPosts((prevPosts) => [...prevPosts, createdPost]);
       // Réinitialisation des états après la création du post
       setLegend("");

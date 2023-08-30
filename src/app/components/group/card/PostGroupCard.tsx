@@ -72,33 +72,25 @@ const PostGroupCard = ({ groupId }: Props) => {
                   className="profile_img-cover"
                 />
               </div>
-              <h3>
-                {post.author}
-                <br />
-                <span className="hour">{post.timestamp}</span>
-                <span className="globDot">.</span>
-              </h3>
-              <ul>
-                <li>
-                  <img src={globe} alt="globe" className="profile_img-cover" />
-                </li>
-              </ul>
+              <h3>{post.author}</h3>
             </div>
             <div className="post-group-dot">
               <img src={dot} alt="dot" />
             </div>
           </div>
           <h4 className="post-group-message">{post.description}</h4>
-          {post.uploadedFile && (
-            <img className="post-group-image" src={post.uploadedFile} alt="" />
+          {post.image && (
+            <img className="post-group-image" src={post.image} alt="" />
           )}
+          {/* Penser à le mettre dans un composant pour les likes */}
           <div className="post-group-likes">
             <div onClick={() => handleAddLike(post.id)}>
               <FcLike />
             </div>
             {post?.likes?.length > 0 ? (
               <div className="post-group-likes-content">
-                {post?.likes?.length}
+                {/* Penser à mettre une condition si le likes est sup à 1 alrs mettre "likes" sinon ne rien affichier */}
+                {post?.likes?.length} likes
               </div>
             ) : (
               "0"

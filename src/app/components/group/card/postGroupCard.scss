@@ -30,51 +30,6 @@
         font-weight: 900;
         line-height: 1em;
         cursor: pointer;
-
-        .hour {
-          color: gray;
-          font-size: 15px;
-          font-weight: 500;
-        }
-
-        .globDot {
-          position: absolute;
-          margin-left: 5px;
-          top: -4px;
-          font-size: 20px;
-          align-items: center;
-          color: #0000004b;
-        }
-      }
-      ul {
-        position: relative;
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        li {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          margin-top: 10px;
-          margin-right: 48px;
-          list-style: none;
-          text-align: center;
-          img {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            margin-top: -1.5px;
-          }
-        }
       }
     }
 
@@ -93,6 +48,14 @@
   }
   .post-group-image {
     width: 100%;
+  }
+
+  .post-group-likes {
+    display: flex;
+
+    .post-group-likes-content {
+      margin-left: 5px;
+    }
   }
 
   .post-group-imgBg {

@@ -16,7 +16,7 @@ export interface PostType {
   id: number;
   legend: string;
   description: string;
-  uploadedFile: string;
+  image: string;
   likes: [];
 }
 

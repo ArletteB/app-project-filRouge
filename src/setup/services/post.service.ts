@@ -3,9 +3,9 @@ import api from "./api.service";
 
 const POST_ENDPOINT = "/posts";
 
-const create = async (posts: any) => {
+const create = async (post: any) => {
   try {
-    const response = await api.post(POST_ENDPOINT, posts);
+    const response = await api.post(POST_ENDPOINT, post);
     return response.data;
   } catch (error) {
     console.log("Erreur lors de la création du post :", error);

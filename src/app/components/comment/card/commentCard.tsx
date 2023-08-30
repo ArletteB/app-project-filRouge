@@ -105,7 +105,6 @@ const CommentCard = ({ groupId, post, userInGroup }: Props) => {
               </div>
             )}
           </div>
-
           <div className="content-comment">
             <p>{comment.content}</p>
           </div>
