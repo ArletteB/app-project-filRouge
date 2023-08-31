@@ -3,9 +3,13 @@ import { supabase } from "../../../../setup/supabase";
 
 interface UploadFormProps {
   setUploadedFile: (fileUrl: string) => void;
+  postImage: string;
 }
 
-const UploadForm: React.FC<UploadFormProps> = ({ setUploadedFile }) => {
+const UploadForm: React.FC<UploadFormProps> = ({
+  setUploadedFile,
+  postImage,
+}) => {
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -13,15 +17,18 @@ const UploadForm: React.FC<UploadFormProps> = ({ setUploadedFile }) => {
 
     if (file) {
       try {
+        const filePath = Date.now() + "-" + file.name;
+
         const { data, error } = await supabase.storage
-          .from("post") // Remplacez par votre nom de bucket Supabase
-          .upload(file.name, file);
+          .from("post")
+          .upload(filePath, file);
 
         if (error) {
           console.error("Error uploading file:", error);
         } else {
-          const fileKey = data!.path; // Utilisez la clé de fichier renvoyée par Supabase
+          const fileKey = data!.path;
           setUploadedFile(fileKey);
+          postImage = fileKey;
         }
       } catch (error) {
         console.error("Error uploading file:", error);

@@ -23,7 +23,7 @@ export interface PostType {
 export interface PostCreateDto {
   legend: string;
   description: string;
-  image: any;
+  image: string;
   groupe: {
     id: number;
   };

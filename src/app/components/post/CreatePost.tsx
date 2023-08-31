@@ -30,19 +30,19 @@ const CreatePost: React.FC = () => {
     fetchPosts();
   }, [groupId]);
 
+  const newPost: PostCreateDto = {
+    legend,
+    description,
+    image: uploadedFile,
+    groupe: {
+      id: Number(groupId),
+    },
+  };
   const handleSubmit = async (event: React.FormEvent) => {
+    console.log("handleSubmit");
     event.preventDefault();
 
     try {
-      const newPost: PostCreateDto = {
-        legend,
-        description,
-        image: uploadedFile,
-        groupe: {
-          id: Number(groupId),
-        },
-      };
-
       const createdPost = await GroupService.createPost(
         Number(groupId),
         newPost
@@ -91,7 +91,10 @@ const CreatePost: React.FC = () => {
                 value={description}
                 onChange={(event) => setDescription(event.target.value)}
               />
-              <UploadForm setUploadedFile={handleUploadComplete} />
+              <UploadForm
+                setUploadedFile={handleUploadComplete}
+                postImage={newPost.image}
+              />
 
               <button type="submit">Créer le post</button>
             </form>
