@@ -80,32 +80,34 @@ const CommentCard = ({ groupId, post, userInGroup }: Props) => {
                 <img src={user?.imgProfile} alt="" />
                 <span className="stat grey"></span>
               </div>
-              <h5>{user?.firstName}</h5>
             </div>
-            <button
-              className="comment-btn dropdown"
-              onClick={() => {
-                // Si l'index du commentaire actuel est déjà actif, le désactiver
-                if (activeCommentIndex === index) {
-                  setActiveCommentIndex(null);
-                } else {
-                  // Sinon, activer l'index du commentaire actuel
-                  setActiveCommentIndex(index);
-                }
-              }}
-            >
-              <BsThreeDots />
-            </button>
-            {activeCommentIndex === index && (
-              <div className="comment-options">
-                <p>Modifier le commentaire</p>
-                <p onClick={() => handleDeleteComment(comment.id)}>
-                  Supprimer le commentaire
-                </p>
-              </div>
-            )}
           </div>
           <div className="content-comment">
+            <div className="content-comment-infos ">
+              <h5>{user?.firstName}</h5>
+              <button
+                className="comment-btn dropdown"
+                onClick={() => {
+                  // Si l'index du commentaire actuel est déjà actif, le désactiver
+                  if (activeCommentIndex === index) {
+                    setActiveCommentIndex(null);
+                  } else {
+                    // Sinon, activer l'index du commentaire actuel
+                    setActiveCommentIndex(index);
+                  }
+                }}
+              >
+                <BsThreeDots />
+              </button>
+              {activeCommentIndex === index && (
+                <div className="comment-options">
+                  <p>Modifier le commentaire</p>
+                  <p onClick={() => handleDeleteComment(comment.id)}>
+                    Supprimer le commentaire
+                  </p>
+                </div>
+              )}
+            </div>
             <p>{comment.content}</p>
           </div>
           {/* ... */}
