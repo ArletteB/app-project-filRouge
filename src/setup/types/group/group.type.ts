@@ -17,7 +17,7 @@ export interface PostType {
   legend: string;
   description: string;
   image: string;
-  likes: [];
+  likes: string[];
 }
 
 export interface PostCreateDto {

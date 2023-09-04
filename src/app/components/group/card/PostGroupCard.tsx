@@ -26,6 +26,7 @@ const PostGroupCard = ({ groupId }: Props) => {
       try {
         console.log(groupId);
         const posts = await GroupService.getPostsByGroupId(groupId);
+        posts.sort((a, b) => b.id - a.id);
         setGroupPosts(posts);
       } catch (error) {
         console.error("Error fetching group posts:", error);
@@ -52,8 +53,17 @@ const PostGroupCard = ({ groupId }: Props) => {
         return;
       }
       await LikeService.create(postId, user?.id);
-      const posts = await GroupService.getPostsByGroupId(groupId);
-      setGroupPosts(posts);
+      const updatedPosts = posts.map((post) => {
+        if (post.id === postId) {
+          return { ...post, likes: [...post.likes, user.id] };
+        }
+        return post;
+      });
+
+      // Tri des posts mis à jour par ordre décroissant de leur ID
+      updatedPosts.sort((a, b) => b.id - a.id);
+
+      setGroupPosts(updatedPosts);
     } catch (error) {
       console.error("Error adding like:", error);
     }
@@ -96,6 +106,7 @@ const PostGroupCard = ({ groupId }: Props) => {
               "0"
             )}
           </div>
+          <div className="post-group-border"></div>
 
           <div className="comment-content">
             <CommentCard
