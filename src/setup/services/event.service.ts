@@ -10,8 +10,20 @@ const createEvent = async (eventData: FormData) => {
   }
 };
 
+const getEventsByPostalCode = async (postalCode: string) => {
+  try {
+    const response = await api.get(
+      `${EVENT_ENDPOINT}?postalCode=${postalCode}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const EventService = {
   createEvent,
+  getEventsByPostalCode,
 };
 
 export default EventService;

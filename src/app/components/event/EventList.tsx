@@ -1,16 +1,40 @@
+import { useUserContext } from "../../../setup/contexts/UserContext";
+import React, { useState, useEffect } from "react";
+import { EventType } from "../../../setup/types/event/event.type";
+import EventService from "../../../setup/services/event.service";
+import { Link } from "react-router-dom";
+
 const EventList: React.FC = () => {
+  const { user } = useUserContext();
+  const userPostalCode = user?.postalCode; // Supposons que le code postal soit stocké dans user.postalCode
+  const [events, setEvents] = useState<EventType[]>([]);
+
+  useEffect(() => {
+    if (user?.postalCode) {
+      EventService.getEventsByPostalCode(user.postalCode)
+        .then((data) => {
+          setEvents(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching events:", error);
+        });
+    }
+  }, [user]);
+
   return (
     <div id="event-list-content">
-      <a className="event-list-card" href="">
-        <div className="event-list-image">
-          <img src="eventimg.jpg" alt="" />
-        </div>
-        <div className="event-list-infos">
-          <h2>Apero</h2>
-          <p>12/15/25</p>
-          <p>createurMathieu</p>
-        </div>
-      </a>
+      {events.map((event) => (
+        <Link key={event.id} to={`/`} className="event-list-card">
+          <div className="event-list-image">
+            <img src={event.cover} alt="" />
+          </div>
+          <div className="event-list-infos">
+            <h2>{event.title}</h2>
+            <p>{new Date(event.dateEvent).toLocaleDateString()}</p>
+            <p>{event.creatorEvent}</p>
+          </div>
+        </Link>
+      ))}
     </div>
   );
 };

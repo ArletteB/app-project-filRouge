@@ -1,0 +1,48 @@
+/* cover: string;
+title: string;
+dateEvent: Date;
+adress: string;
+description: string;
+creatorEvent: User;
+participants: User []; */
+
+body {
+  margin: 0;
+  padding: 0;
+  background: rgba(202, 204, 206, 0.4901960784);
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.event-list-card {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  width: auto;
+  /* border: 1px solid #ccc; */
+  border-radius: 5px;
+  background-color: #fff;
+}
+.event-list-image {
+  width: 30%;
+}
+
+.event-list-image img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.event-list-infos {
+  margin: 0 18px;
+  padding-top: 5px;
+}
+.event-list-infos h2 {
+  margin: 0;
+}
+.event-list-infos p {
+  margin: 4px 0;
+  font-size: 20px;
+}

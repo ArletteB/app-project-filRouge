@@ -9,6 +9,10 @@ export interface UserType {
   bio: string;
   imgProfile: string;
   gender: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  phoneNumber: string;
   groupes: GroupType[];
 }
 

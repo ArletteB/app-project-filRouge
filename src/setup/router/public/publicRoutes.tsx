@@ -11,6 +11,7 @@ import CreatePost from "../../../app/components/post/CreatePost";
 import { UserProfilPage } from "../../../app/pages/user/userProfil";
 import EditProfil from "../../../app/components/userProfil/editProfil";
 import { AccueilPage } from "../../../app/pages/home/accueilPage";
+import EventList from "../../../app/components/event/EventList";
 
 export const PublicRoutes = () => {
   return (
@@ -25,6 +26,7 @@ export const PublicRoutes = () => {
       <Route path="/groupe/:id" element={<SingleGroup />} />
       {/* <Route path="/groupes" element={<GroupList />} /> */}
       <Route path="/groupes/:groupId/posts/create" element={<CreatePost />} />
+      <Route path="/events" element={<EventList />} />
       <Route path="/profile" element={<UserProfilPage />} />
       <Route path="/editprofile" element={<EditProfil />} />
 
