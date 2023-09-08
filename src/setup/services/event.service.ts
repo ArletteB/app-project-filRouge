@@ -1,9 +1,10 @@
 import api from "./api.service";
 
 const EVENT_ENDPOINT = "/events";
-const createEvent = async (eventData: FormData) => {
+
+const createEvent = async (eventData: FormData, creatorUserId: string) => {
   try {
-    const response = await api.post(EVENT_ENDPOINT, eventData);
+    const response = await api.post(`/events/${creatorUserId}`, eventData);
     return response.data;
   } catch (error) {
     throw error;

@@ -7,6 +7,6 @@ export interface EventType {
   dateEvent: Date;
   adress: string;
   description: string;
-  creatorEvent: UserType["firstName"];
+  CreatorEvent: UserType;
   participants: UserType[];
 }

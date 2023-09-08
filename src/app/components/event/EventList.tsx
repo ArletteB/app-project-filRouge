@@ -25,13 +25,17 @@ const EventList: React.FC = () => {
     <div id="event-list-content">
       {events.map((event) => (
         <Link key={event.id} to={`/`} className="event-list-card">
-          <div className="event-list-image">
-            <img src={event.cover} alt="" />
-          </div>
+          {event.cover && (
+            <div className="event-list-image">
+              <img src={event.cover} alt="" />
+            </div>
+          )}
           <div className="event-list-infos">
             <h2>{event.title}</h2>
             <p>{new Date(event.dateEvent).toLocaleDateString()}</p>
-            <p>{event.creatorEvent}</p>
+            <p>
+              {event.CreatorEvent?.firstName} {event.CreatorEvent?.lastName}
+            </p>
           </div>
         </Link>
       ))}

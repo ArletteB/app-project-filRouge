@@ -1,17 +1,14 @@
 // // EventForm.tsx
 import React, { useState } from "react";
-import "./EventForm.scss";
 import EventService from "../../../../setup/services/event.service";
 import { EventType } from "../../../../setup/types/event/event.type";
 import { useUserContext } from "../../../../setup/contexts/UserContext";
 import { supabase } from "../../../../setup/supabase";
-
-interface EventFormProps {
-  onSubmit: (formData: FormData) => void;
-}
+import UploadEventForm from "./UploadEventForm";
+import { useNavigate } from "react-router-dom";
 
 interface FormData {
-  image: File | null;
+  image: string;
   title: string;
   date: string;
   address: string;
@@ -19,9 +16,10 @@ interface FormData {
 }
 
 const EventForm: React.FC = () => {
+  const navigate = useNavigate();
   const { user } = useUserContext();
   const [formData, setFormData] = useState<FormData>({
-    image: null,
+    image: "", // Initialise l'URL de l'image à une chaîne vide
     title: "",
     date: "",
     address: "",
@@ -37,46 +35,52 @@ const EventForm: React.FC = () => {
       [name]: value,
     }));
   };
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUploadComplete = (fileUrl: string) => {
     setFormData((prevData) => ({
       ...prevData,
-      image: event.target.files![0],
+      image: fileUrl, // Mettez à jour l'URL de l'image dans le formulaire
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Upload de l'image à Supabase
-    let imageUrl = "";
-    if (formData.image) {
-      const { data, error } = await supabase.storage
-        .from("your-storage-bucket") // Remplacez par votre bucket de stockage
-        .upload(`events/${formData.image.name}`, formData.image);
-
-      if (error) {
-        console.error("Erreur lors du téléchargement de l'image:", error);
-      } else {
-        imageUrl = data!.path || "";
-      }
-    }
-
-    // Préparez les données à envoyer à votre backend ou Supabase DB
+    // Créez un nouvel objet FormData
     const formDataToSend = new FormData();
-    formDataToSend.append("cover", imageUrl);
+    formDataToSend.append("cover", formData.image); // Assurez-vous que les noms correspondent à votre API
     formDataToSend.append("title", formData.title);
     formDataToSend.append("dateEvent", formData.date);
-    formDataToSend.append("adress", formData.address);
+    formDataToSend.append("adress", formData.address); // Assurez-vous que le nom correspond à votre API
     formDataToSend.append("description", formData.description);
 
-    // Envoi des données à votre backend ou Supabase DB
-    await EventService.createEvent(formDataToSend);
+    try {
+      const userId = user?.id;
+      // Appelez EventService.createEvent avec FormData
+      if (userId) {
+        // Appelez EventService.createEvent avec FormData et l'ID de l'utilisateur
+        await EventService.createEvent(formDataToSend, userId);
+
+        // Réinitialisez le formulaire après la soumission réussie
+        setFormData({
+          image: "",
+          title: "",
+          date: "",
+          address: "",
+          description: "",
+        });
+
+        navigate("/events");
+      } else {
+        console.error("ID de l'utilisateur non trouvé.");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la soumission de l'événement:", error);
+    }
   };
 
   return (
     <form className="event-form" onSubmit={handleSubmit}>
-      <input type="file" name="image" onChange={handleImageChange} />
+      <UploadEventForm setUploadedFile={handleUploadComplete} />
       <input
         type="text"
         name="title"
