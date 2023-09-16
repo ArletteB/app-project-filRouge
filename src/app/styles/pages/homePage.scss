@@ -30,6 +30,11 @@
     a:first-child {
       margin-right: 100px;
     }
+    @media screen and (max-width: 769px) {
+      a:first-child {
+        margin-right: auto;
+      }
+    }
   }
 
   .welcome-text {

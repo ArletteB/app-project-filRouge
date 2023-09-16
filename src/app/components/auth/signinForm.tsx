@@ -1,6 +1,5 @@
 import React, { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
-// import "../../styles/auth.scss";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../setup/contexts/UserContext";
 import { setAuthorizationHeader } from "../../../setup/services/api.service";
@@ -10,7 +9,7 @@ import AuthService from "../../../setup/services/auth.service";
 const SigninForm: React.FC = () => {
   const { setUser } = useUserContext();
   const [credentials, setCredentials] = useState({});
-  const [redirectTo, setRedirectTo] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,23 +22,23 @@ const SigninForm: React.FC = () => {
   const handleSignin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (isSubmitting) {
+      return; // Empêcher les soumissions multiples
+    }
+    setIsSubmitting(true);
+
     try {
       const { access_token } = await AuthService.signin(credentials);
-      // const data = response.data;
       TokenService.setTokenInLocalStorage(access_token);
       const user = TokenService.getUserInToken(access_token) as any;
       setUser(user);
-      console.log("response ", user);
-      setRedirectTo(!redirectTo);
-
-      if (redirectTo) {
-        navigate("/accueil");
-      }
-
-      // Appel de la fonction setAuthorizationHeader avec le jeton d'authentification en paramètre
       setAuthorizationHeader(access_token);
+
+      navigate("/accueil");
     } catch (error) {
       console.error("Erreur de connexion :", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -48,13 +47,13 @@ const SigninForm: React.FC = () => {
       <div className="a-auth-content">
         <div className="a-auth-main">
           <div className="a-auth-row">
-            <div className="col-md-6 a-side-image">
+            {/* <div className="col-md-6 a-side-image">
               <div className="a-side-text">
                 <p>
                   Rejoindre la communauté <i>- MonBonVoisinage</i>
                 </p>
               </div>
-            </div>
+            </div> */}
             <div className="col-md-6 a-auth-infos">
               <div className="a-input-content">
                 <div className="a-header-content">
@@ -90,6 +89,7 @@ const SigninForm: React.FC = () => {
                   <input
                     type="submit"
                     value={`S'identifier`}
+                    disabled={isSubmitting}
                     className="submit"
                   />
                 </div>

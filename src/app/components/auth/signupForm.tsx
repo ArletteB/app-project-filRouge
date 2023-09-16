@@ -3,16 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { UserType } from "../../../setup/types/auth/user.type";
 
 const SignupForm: React.FC = () => {
-  const [redirectTo, setRedirectTo] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [credentials, setCredentials] = useState<Partial<UserType>>({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
+    address: "",
+    city: "",
+    postalCode: "",
   });
 
   const [step, setStep] = useState(1);
-
   const navigate = useNavigate();
 
   const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,23 +32,31 @@ const SignupForm: React.FC = () => {
   };
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/auth/signup`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      }
-    );
-    const data = await response.json();
-    console.log(data);
 
-    setRedirectTo(!redirectTo);
+    if (isSubmitting) {
+      return; // Empêcher les soumissions multiples
+    }
+    setIsSubmitting(true);
 
-    if (redirectTo) {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/auth/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(credentials),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+
       navigate("/auth/signin");
+    } catch (error) {
+      console.error("Erreur d'inscription :", error);
+    } finally {
+      setIsSubmitting(false); // Réactiver le bouton de soumission après la navigation ou en cas d'erreur
     }
   };
 
@@ -55,14 +65,6 @@ const SignupForm: React.FC = () => {
       <div className="a-auth-content">
         <div className="a-auth-main">
           <div className="a-auth-row">
-            <div className="col-md-6 a-side-image">
-              <div className="a-side-text">
-                <p>
-                  Rejoindre la communauté <br />
-                  <i> SociaLink</i>
-                </p>
-              </div>
-            </div>
             <div className="col-md-6 a-auth-infos">
               <div className="a-input-content">
                 <div className="a-header-content">
@@ -108,8 +110,64 @@ const SignupForm: React.FC = () => {
                       </div>
                     </div>
                   )}
-                  {/*  Second step */}
                   {step === 2 && (
+                    <div className="form_1 data_info">
+                      <h3>Adresse</h3>
+                      <div className="form_container">
+                        <div className="a-input-field">
+                          <input
+                            type="text"
+                            className="input"
+                            id="address"
+                            name="address"
+                            onChange={handleFormChange}
+                            required
+                          />
+                          <label htmlFor="adress">Adresse</label>
+                        </div>
+                        <div className="a-input-field">
+                          <input
+                            type="text"
+                            className="input"
+                            id="city"
+                            name="city"
+                            onChange={handleFormChange}
+                            required
+                          />
+                          <label htmlFor="city">Ville</label>
+                        </div>
+                        <div className="a-input-field">
+                          <input
+                            type="text"
+                            className="input"
+                            id="postalCode"
+                            name="postalCode"
+                            onChange={handleFormChange}
+                            required
+                          />
+                          <label htmlFor="postalCode">Code postal</label>
+                        </div>
+                      </div>
+                      <div className="a-auth-btn form_1_btns">
+                        <button
+                          type="button"
+                          className="btn_back"
+                          onClick={handlePrevStep}
+                        >
+                          Back
+                        </button>
+                        <button
+                          type="button"
+                          className="btn_next"
+                          onClick={handleNextStep}
+                        >
+                          Next
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  {/*  Second step */}
+                  {step === 3 && (
                     <div className="form_2 data_info style">
                       <h3>Identifiant</h3>
                       <div className="form_container">
@@ -147,6 +205,7 @@ const SignupForm: React.FC = () => {
                         <input
                           type="submit"
                           value={`S'inscrire`}
+                          disabled={isSubmitting}
                           className="btn_done"
                         />
                       </div>
