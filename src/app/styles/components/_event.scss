@@ -1,21 +1,3 @@
-/* cover: string;
-title: string;
-dateEvent: Date;
-adress: string;
-description: string;
-creatorEvent: User;
-participants: User []; */
-
-body {
-  margin: 0;
-  padding: 0;
-  background: rgba(202, 204, 206, 0.4901960784);
-}
-a {
-  text-decoration: none;
-  color: black;
-}
-
 .event-list-card {
   display: flex;
   align-items: center;
@@ -44,4 +26,12 @@ a {
 .event-list-infos p {
   margin: 4px 0;
   font-size: 20px;
+}
+
+@media (min-width: 1020px) {
+  .event-list-card {
+    width: 600px;
+    margin: 10px auto;
+    padding: 20px;
+  }
 }

@@ -1,6 +1,4 @@
 .a-auth-content {
-  /* background: #ececec; */
-  // padding: 0 20px 0 20px;
   .a-auth-main {
     display: flex;
     justify-content: center;
@@ -179,7 +177,7 @@ span a:hover {
 }
 
 .a-auth-btn button.btn_back {
-  background: #ececec;
+  background: $grey;
 }
 .a-auth-btn .btn_done {
   border: none;

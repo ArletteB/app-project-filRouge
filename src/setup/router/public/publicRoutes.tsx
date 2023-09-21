@@ -13,6 +13,8 @@ import EditProfil from "../../../app/components/userProfil/editProfil";
 import { AccueilPage } from "../../../app/pages/home/accueilPage";
 import EventList from "../../../app/components/event/EventList";
 import EventForm from "../../../app/components/event/card/EventForm";
+import EventDetails from "../../../app/components/event/card/EventDetails";
+import SingleEvent from "../../../app/components/event/SingleEvent";
 
 export const PublicRoutes = () => {
   return (
@@ -29,6 +31,7 @@ export const PublicRoutes = () => {
       <Route path="/groupes/:groupId/posts/create" element={<CreatePost />} />
       <Route path="/create-event" element={<EventForm />} />
       <Route path="/events" element={<EventList />} />
+      <Route path="/events/:eventId" element={<SingleEvent />} />
       <Route path="/profile" element={<UserProfilPage />} />
       <Route path="/editprofile" element={<EditProfil />} />
 

@@ -1,50 +1,55 @@
-import React, { useEffect, useState } from "react";
+// NavBar.tsx
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../../setup/contexts/UserContext";
 import socialLink from "../../assets/img/socialLink.png";
 
-const Navbar: React.FC = () => {
+const NavBar: React.FC = () => {
   const { user } = useUserContext();
-  const [menuburger, setMenuBurger] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    setMenuBurger(false);
-  }, []);
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
-    <nav className="nav-content">
-      <Link to="/" className="logo" onClick={() => setMenuBurger(false)}>
-        <img src={socialLink} alt="logo" />
-      </Link>
-
+    <nav
+      className={`nav-content ${isMobileMenuOpen ? "mobile-menu-open" : ""}`}
+    >
+      <div className="logo">
+        <img src={socialLink} alt="Logo" />
+      </div>
       <button
-        type="button"
-        className={`nav-burger ${menuburger ? "active" : ""}`}
-        onClick={() => {
-          setMenuBurger(!menuburger);
-        }}
+        className={`nav-burger ${isMobileMenuOpen ? "active" : ""}`}
+        onClick={toggleMobileMenu}
       >
         <div></div>
         <div></div>
         <div></div>
       </button>
-
-      <ul className={`list ${menuburger ? "active" : ""}`}>
-        <>
+      <div className={`sidebar-menu ${isMobileMenuOpen ? "active" : ""}`}>
+        <ul>
           <li>
-            <Link to="/auth/signin" onClick={() => setMenuBurger(false)}>
-              Connexion
+            <Link to="/events" onClick={toggleMobileMenu}>
+              Évènements
             </Link>
           </li>
           <li>
-            <Link to="/auth/signup" onClick={() => setMenuBurger(false)}>
-              Inscription
+            <Link to="/groups" onClick={toggleMobileMenu}>
+              Groupes
             </Link>
           </li>
-        </>
-      </ul>
+          {user && (
+            <li>
+              <Link to="/profile" onClick={toggleMobileMenu}>
+                Profil
+              </Link>
+            </li>
+          )}
+        </ul>
+      </div>
     </nav>
   );
 };
 
-export default Navbar;
+export default NavBar;

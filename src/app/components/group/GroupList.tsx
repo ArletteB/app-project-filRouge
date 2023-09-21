@@ -39,7 +39,7 @@ const GroupList: React.FC<GroupListProps> = ({
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/groupes`,
         {
-          params: { postalCode: searchPostalCode }, // Ajoutez le code postal en tant que paramètre de requête
+          params: { postalCode: searchPostalCode },
         }
       );
       const groups = response.data;
@@ -51,7 +51,6 @@ const GroupList: React.FC<GroupListProps> = ({
 
   const joinGroup = async (groupId: number) => {
     try {
-      // Appel à votre service API pour rejoindre le groupe
       if (user) {
         await axios.patch(
           `${process.env.REACT_APP_API_URL}/users/${user.id}/group/${groupId}`

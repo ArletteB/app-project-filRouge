@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 const EventList: React.FC = () => {
   const { user } = useUserContext();
-  const userPostalCode = user?.postalCode; // Supposons que le code postal soit stocké dans user.postalCode
   const [events, setEvents] = useState<EventType[]>([]);
 
   useEffect(() => {
@@ -24,7 +23,11 @@ const EventList: React.FC = () => {
   return (
     <div id="event-list-content">
       {events.map((event) => (
-        <Link key={event.id} to={`/`} className="event-list-card">
+        <Link
+          to={`/events/${event.id}`}
+          key={event.id}
+          className="event-list-card"
+        >
           {event.cover && (
             <div className="event-list-image">
               <img src={event.cover} alt="" />

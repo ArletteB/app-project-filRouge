@@ -64,7 +64,6 @@ const GroupCard = ({ groupes }: Props) => {
         </div>
         <div className="group-card-name">
           <h2 className="group-card-name-title ">{groupes.name}</h2>
-          {/* <h4 className="group-card-members">Members: {group.users.length}</h4> */}
           <div>
             {!isUserMember && (
               <button
