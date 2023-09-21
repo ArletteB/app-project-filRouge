@@ -5,6 +5,7 @@ import GroupService from "../../../setup/services/group.service";
 import { GroupType } from "../../../setup/types/group/group.type";
 import PostGroupCard from "./card/PostGroupCard";
 import { Link } from "react-router-dom";
+import NavBar from "../ui/Navbar";
 
 const SingleGroup: React.FC<{}> = () => {
   const { id } = useParams();
@@ -27,6 +28,7 @@ const SingleGroup: React.FC<{}> = () => {
 
   return (
     <div className="single-group ">
+      <NavBar />
       <GroupCard groupes={oneGroup} />
       <Link to={`/groupes/${id}/posts/create`}>
         <button className="group-card-btn">Ajouter un post</button>

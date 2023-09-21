@@ -18,9 +18,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const [searchValue, setSearchValue] = useState(value || "");
 
-  // const handleSearch = () => {
-  //   onSearch(searchValue);
-  // };
   const handleSearch = () => {
     onSearch(searchValue);
   };

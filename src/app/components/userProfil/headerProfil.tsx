@@ -1,38 +1,41 @@
-const HeaderProfil: React.FC = () => {
+import React from "react";
+import { useUserContext } from "../../../setup/contexts/UserContext";
+import { Link } from "react-router-dom";
+const UserProfile: React.FC = () => {
+  const { user } = useUserContext();
+
+  if (!user) {
+    return <div>Aucun utilisateur n'est connecté</div>;
+  }
+
   return (
-    <div className="profile-header">
-      <img
-        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0MDM2ODA0NA&ixlib=rb-1.2.1&q=85"
-        width="60"
-        height="60"
-        className="avatar"
-      />
-      <div className="profile-info">
-        <h1 className="display-name">John Doe</h1>
-      </div>
-      {/*  <div className="profile-stats">
-      <div className="profile-stat">
-        <strong id="followingCount">243</strong>
-        <span>Following</span>
-      </div>
-      <div className="profile-stat">
-        <strong id="followerCount">56.7K</strong>
-        <span>Followers</span>
-      </div>
-      <div className="profile-stat">
-        <strong id="likeCount">4.22M</strong>
-        <span>Likes</span>
-      </div>
-    </div> */}
-      <div className="profile-controls">
-        <div className="stacked-button">
-          <button className="follow" id="following">
-            <span className="follow-text">Modifier profil</span>
-          </button>
+    <>
+      <div className="profile-header">
+        <img className="profile-image" src={user.imgProfile} alt="" />
+        <div className="profile-info">
+          <h2 className="profile-infos-name">
+            {user.firstName} {user.lastName}
+          </h2>
+          <div className="profile-infos-content">
+            <div>{user.email}</div>
+            <div>
+              {user.address}, {user.postalCode} {user.city}
+            </div>
+            <div>{user.phoneNumber}</div>
+            <div>{user.gender}</div>
+          </div>
+          <Link to="/edit-profile">
+            {" "}
+            {/* Assurez-vous que "/edit-profile" est la route vers la page de modification du profil */}
+            <button className="edit-profile-button">Modifier le profil</button>
+          </Link>
         </div>
       </div>
-    </div>
+      <div className="profile-bio">
+        <h3>{user.bio}</h3>
+      </div>
+    </>
   );
 };
 
-export default HeaderProfil;
+export default UserProfile;

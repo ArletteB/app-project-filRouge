@@ -14,6 +14,7 @@ export interface UserType {
   postalCode: string;
   phoneNumber: string;
   groupes: GroupType[];
+  [key: string]: string | GroupType[];
 }
 
 export type ResetPassword = {

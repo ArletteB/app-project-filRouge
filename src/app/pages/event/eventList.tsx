@@ -1,7 +1,11 @@
+import EventList from "../../components/event/EventList";
+import NavBar from "../../components/ui/Navbar";
+
 export const EventListPage: React.FC = () => {
   return (
     <div>
-      <h1>EventListPage</h1>
+      <NavBar />
+      <EventList />
     </div>
   );
 };

@@ -35,7 +35,7 @@ const NavBar: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link to="/groups" onClick={toggleMobileMenu}>
+            <Link to="/groupes" onClick={toggleMobileMenu}>
               Groupes
             </Link>
           </li>

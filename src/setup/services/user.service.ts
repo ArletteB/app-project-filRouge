@@ -1,9 +1,6 @@
-import { useUserContext } from "../contexts/UserContext";
 import api from "./api.service";
 
 const Users_ENDPOINT = "/users";
-
-// const { user } = useUserContext();
 
 const create = async (users: any) => {
   const response = await api.post(Users_ENDPOINT, users);
@@ -21,7 +18,7 @@ const getAll = async () => {
 };
 
 const update = async (id: any, users: any) => {
-  const response = await api.put(`${Users_ENDPOINT}/${id}`, users);
+  const response = await api.patch(`${Users_ENDPOINT}/${id}`, users); // Utilisez patch au lieu de put
   return response.data;
 };
 
@@ -30,24 +27,15 @@ const remove = async (id: any) => {
   return response.data;
 };
 
-// const joinGroup = async (groupId: number) => {
-//   try {
-//     if (user) {
-//       const response = await api.post(
-//         `${Users_ENDPOINT}/${user.id}/group/${groupId}`
-//       );
-//       return response.data;
-//     }
-//   } catch (error) {
-//     console.log("Erreur lors de la création du post :", error);
-//     throw error;
-//   }
-// };
-
 const isUserInGroup = async (userId: any, groupId: number) => {
   const response = await api.get(
     `${Users_ENDPOINT}/${userId}/groups/${groupId}`
   );
+  return response.data;
+};
+
+const findOneWithGroups = async (id: any) => {
+  const response = await api.get(`${Users_ENDPOINT}/${id}/groups`);
   return response.data;
 };
 
@@ -57,6 +45,7 @@ const UserService = {
   getAll,
   update,
   remove,
+  findOneWithGroups,
   isUserInGroup,
 };
 

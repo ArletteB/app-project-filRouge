@@ -1,0 +1,51 @@
+.group-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: $white;
+  border: 1px solid $grey;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    color: #000000;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    .form-group {
+      margin-bottom: 20px;
+      label {
+        color: #000000;
+        font-size: 16px;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ececec;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+    }
+
+    button[type="submit"] {
+      background-color: #f49030;
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+
+      &:hover {
+        background-color: darken(#f49030, 10%);
+      }
+    }
+  }
+}
